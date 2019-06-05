@@ -7,27 +7,41 @@
 //
 
 import UIKit
-import SceneKit
+
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
-
-    @IBOutlet var sceneView: ARSCNView!
+class ViewController: UIViewController {
     
+    private let sceneView: ARSCNView = {
+        let arview = ARSCNView();
+        return arview;
+    }()
+    private let sessionInfoView: UIView = {
+        return UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    }()
+    private let sessionInfoLabel: UILabel = {
+        let uiLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        uiLabel.text = "this is some text"
+        uiLabel.textAlignment = .center
+        return uiLabel
+    }()
+    private let showHidePlanesButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        button.setTitle("Show Planes", for: .normal)
+        return button
+    }()
+    
+    var sceneDelegate : SceneDelegate!
+    var sessionDelegate : SessionDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Set the view's delegate
-        sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
+        buildUI()
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        sceneDelegate = SceneDelegate()
+        sessionDelegate = SessionDelegate(label: sessionInfoLabel, view: sessionInfoView)
+        sceneView.delegate = sceneDelegate
+        sceneView.session.delegate = sessionDelegate
+        sceneView.showsStatistics = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +49,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
+        configuration.planeDetection = [.horizontal];
+        
         // Run the view's session
         sceneView.session.run(configuration)
     }
@@ -43,33 +58,50 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        // Pause the view's session
         sceneView.session.pause()
     }
-
-    // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Release any cached data, images, etc that aren't in use.
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+    @IBAction func showHideButtonTouchUp(_ sender: Any) {
+        sceneDelegate.showNewPlacements = !sceneDelegate.showNewPlacements
+        
+        let titleString = sceneDelegate.showNewPlacements ? "Hide Planes" : "Show Planes"
+        showHidePlanesButton.setTitle(titleString, for: .normal)
         
     }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
+    private func buildUI() {
+        view.backgroundColor = UIColor.red
         
+        view.addSubview(sceneView)
+        sceneView.translatesAutoresizingMaskIntoConstraints = false
+        sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        sceneView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        sceneView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        view.addSubview(sessionInfoView)
+        sessionInfoView.translatesAutoresizingMaskIntoConstraints = false
+        sessionInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        sessionInfoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        sessionInfoView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        sessionInfoView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        sessionInfoView.addSubview(sessionInfoLabel)
+        sessionInfoLabel.backgroundColor = UIColor.green
+        sessionInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        sessionInfoLabel.leadingAnchor.constraint(equalTo: sessionInfoView.leadingAnchor).isActive = true
+        sessionInfoLabel.trailingAnchor.constraint(equalTo: sessionInfoView.trailingAnchor).isActive = true
+        sessionInfoLabel.bottomAnchor.constraint(equalTo: sessionInfoView.bottomAnchor, constant: -20).isActive = true
+        
+        view.addSubview(showHidePlanesButton)
+        showHidePlanesButton.backgroundColor = UIColor.green
+        showHidePlanesButton.translatesAutoresizingMaskIntoConstraints = false
+        showHidePlanesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        showHidePlanesButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        showHidePlanesButton.addTarget(self, action: #selector(showHideButtonTouchUp), for: .touchUpInside)
     }
 }
