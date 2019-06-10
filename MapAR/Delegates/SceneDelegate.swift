@@ -14,7 +14,9 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
     var _isFirst : Bool = true;
     var _image : UIImage = UIImage() {
         didSet {
-            displayedNode.image = self._image
+            if(planes.count > 0){
+                displayedNode.image = self._image
+            }
         }
     };
     

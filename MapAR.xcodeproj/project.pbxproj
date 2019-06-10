@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A0C4EFF22AED0700061FA65 /* MarkerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4EFE22AED06F0061FA65 /* MarkerNode.swift */; };
 		A34A5BBD22A44B9D000342A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */; };
 		A34A5BBF22A44B9D000342A7 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A34A5BBE22A44B9D000342A7 /* art.scnassets */; };
 		A34A5BC122A44B9D000342A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BC022A44B9D000342A7 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A0C4EFE22AED06F0061FA65 /* MarkerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerNode.swift; sourceTree = "<group>"; };
 		A34A5BB922A44B9D000342A7 /* MapAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A34A5BBE22A44B9D000342A7 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				A34A5BD722A44DC4000342A7 /* BuildingBox.swift */,
 				A34A5BDC22A44E0B000342A7 /* MapNode.swift */,
+				5A0C4EFE22AED06F0061FA65 /* MarkerNode.swift */,
 			);
 			path = Geometries;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				A34A5BD222A44D1D000342A7 /* SceneDelegate.swift in Sources */,
 				A34A5BD422A44D69000342A7 /* SessionDelegate.swift in Sources */,
 				A34A5BDD22A44E0B000342A7 /* MapNode.swift in Sources */,
+				5A0C4EFF22AED0700061FA65 /* MarkerNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

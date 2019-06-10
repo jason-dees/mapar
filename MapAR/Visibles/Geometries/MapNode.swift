@@ -31,6 +31,9 @@ class MapNode : SCNNode {
             setPosition(nextPlaneAnchor: planeAnchor)
         }
     }
+    
+    var _constraint: SCNTransformConstraint!
+    
     private func setup(){
         
         //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
@@ -40,26 +43,8 @@ class MapNode : SCNNode {
         planeNode.name = "plane"
         planeNode?.eulerAngles.x = -.pi / 2
         planeNode?.opacity = 1
-        
+        buildConstraint()
         self.addChildNode(planeNode)
-//        let constraint = SCNTransformConstraint(inWorldSpace: false, with:{
-//            node, transformMatrix in
-//
-//            let width = self.nodeWidth(node: self.planeNode)
-//            let height = self.nodeHeight(node: self.planeNode)
-//            let cityWidth = self.nodeWidth(node: node)
-//            let cityHeight = self.nodeHeight(node: node)
-//            var scale = (width - 0.1)/cityWidth
-//            if(width > height){
-//                scale = (height - 0.1)/cityHeight
-//            }
-//            node.position = SCNVector3(x: self.planeNode.position.x,
-//                                       y: cityHeight/2 * scale,
-//                                       z: self.planeNode.position.z)
-//            node.scale = SCNVector3(scale, scale, scale)
-//            return node.transform
-//        })
-//        buildingNode.constraints = [constraint]
     }
     override init(){
         super.init()
@@ -102,5 +87,37 @@ class MapNode : SCNNode {
         let x = nextPlaneAnchor.center.x
         let y = nextPlaneAnchor.center.z
         planeNode?.simdPosition = float3(x: x, y: 0, z: y)
+    }
+    
+    private func buildConstraint(){
+        _constraint = SCNTransformConstraint(inWorldSpace: false, with:{
+            node, transformMatrix in
+            
+            let width = MapNode.nodeWidth(node: self.planeNode)
+            let height = MapNode.nodeHeight(node: self.planeNode)
+            let cityWidth = MapNode.nodeWidth(node: node)
+            let cityHeight = MapNode.nodeHeight(node: node)
+            var scale = (width - 0.1)/cityWidth
+            if(width > height){
+                scale = (height - 0.1)/cityHeight
+            }
+            node.position = SCNVector3(x: self.planeNode.position.x,
+                                       y: cityHeight/2 * scale,
+                                       z: self.planeNode.position.z)
+            node.scale = SCNVector3(scale, scale, scale)
+            return node.transform
+        })
+    }
+    
+    private static func nodeWidth(node: SCNNode) -> Float{
+        let boundingMax = node.boundingBox.max
+        let boundingMin = node.boundingBox.min
+        return boundingMax.x + abs(boundingMin.x)
+    }
+    
+    private static func nodeHeight(node : SCNNode) -> Float{
+        let boundingMax = node.boundingBox.max
+        let boundingMin = node.boundingBox.min
+        return boundingMax.y + abs(boundingMin.y)
     }
 }
