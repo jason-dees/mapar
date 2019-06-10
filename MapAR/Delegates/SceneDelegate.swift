@@ -10,9 +10,9 @@ import Foundation
 import ARKit
 
 class SceneDelegate : NSObject, ARSCNViewDelegate {
-    
-    var _showNewPlacements : Bool = false
+
     var _isFirst : Bool = true;
+    var _image : UIImage = UIImage();
     
     var planes : Array<MapNode> = Array()
     var displayedNode : MapNode {
@@ -27,18 +27,21 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    public var showNewPlacements: Bool {
-        get {
-            return _showNewPlacements
-        }
-        set(newShowNewPlacements) {
-            _showNewPlacements = newShowNewPlacements
-            if(_showNewPlacements){
+    public var showNewPlacements: Bool = false {
+        didSet {
+            if(showNewPlacements){
                 self.showOtherPlanes()
             }
             else{
                 self.hideOtherPlanes()
             }
+        }
+    }
+    
+    public var gameCode: String = ""{
+        didSet {
+            downloadMapData(from: gameCode)
+            displayedNode.image = self._image
         }
     }
     
@@ -88,6 +91,25 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
     func showOtherPlanes(){
         for otherPlane in otherPlanes.filter({ !$0.hasRendered }) {
             otherPlane.isHidden = false
+        }
+    }
+    
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func downloadMapData(from gameCode: String){
+        let mapUrl = URL(string: "https://maprfunctions.azurewebsites.net/api/games/\(gameCode)/activemap/image")!
+        downloadImage(from: mapUrl)
+    }
+    
+    func downloadImage(from url: URL){
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async() {
+                self._image = UIImage(data: data)!
+            }
         }
     }
 }

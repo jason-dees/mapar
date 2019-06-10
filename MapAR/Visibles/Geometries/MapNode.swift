@@ -13,10 +13,17 @@ class MapNode : SCNNode {
     
     var planeNode : SCNNode!
     public private(set) var hasRendered: Bool =  false
+    public var image : UIImage = UIImage() {
+        didSet {
+            setPlaneImage(image: image)
+        }
+    }
     public var isMain : Bool = false {
         didSet{
             let color = isMain ? UIColor.red : UIColor.green
-            setPlaneNodeColor(color: color)
+            if(!isMain){
+                setPlaneNodeColor(color: color)
+            }
         }
     };
     public var planeAnchor: ARPlaneAnchor!{
@@ -32,7 +39,7 @@ class MapNode : SCNNode {
         planeNode = SCNNode()
         planeNode.name = "plane"
         planeNode?.eulerAngles.x = -.pi / 2
-        planeNode?.opacity = 0.25
+        planeNode?.opacity = 1
         
         self.addChildNode(planeNode)
 //        let constraint = SCNTransformConstraint(inWorldSpace: false, with:{
@@ -64,6 +71,12 @@ class MapNode : SCNNode {
         setup()
     }
     
+    private func setPlaneImage(image: UIImage){
+        planeNode?.geometry?.firstMaterial?.diffuse.contents = image
+        (planeNode?.geometry as! SCNPlane).width = image.size.width;
+        (planeNode?.geometry as! SCNPlane).height = image.size.height;
+    }
+    
     private func setPlaneNodeColor(color : UIColor){
         planeNode?.geometry?.firstMaterial?.diffuse.contents = color
     }
@@ -71,12 +84,7 @@ class MapNode : SCNNode {
     private func setPosition(nextPlaneAnchor: ARPlaneAnchor) {
         var extentX = nextPlaneAnchor.extent.x
         var extentZ = nextPlaneAnchor.extent.z
-        if(extentX < extentZ){
-            extentX = extentZ
-        }
-        else{
-            extentZ = extentX
-        }
+        
         let plane = SCNPlane(width: CGFloat(extentX), height: CGFloat(extentZ))
         
         planeNode?.geometry = plane

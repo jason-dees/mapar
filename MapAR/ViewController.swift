@@ -31,6 +31,12 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private let enterGameNameButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        button.setTitle("Enter Game", for: .normal)
+        return button
+    }()
+    
     var sceneDelegate : SceneDelegate!
     var sessionDelegate : SessionDelegate!
     override func viewDidLoad() {
@@ -73,6 +79,28 @@ class ViewController: UIViewController {
         showHidePlanesButton.setTitle(titleString, for: .normal)
         
     }
+    
+    @IBAction func showGameEntryBox(_ sender: Any){
+        let alert = UIAlertController(title: "Enter Game Code",
+                                      message: "Please input the alphanumeric gamecode",
+                                      
+                                      preferredStyle: UIAlertController.Style.alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "Game code"
+            textField.text = "KR0ACE"
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){ (alertAction) in }
+        let action = UIAlertAction(title: "Done", style: .default) { (alertAction) in
+            self.sceneDelegate.gameCode = (alert.textFields![0] as UITextField).text ?? ""
+        }
+        
+        alert.addAction(action)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated:true, completion: nil)
+    }
+    
     private func buildUI() {
         view.backgroundColor = UIColor.red
         
@@ -103,5 +131,12 @@ class ViewController: UIViewController {
         showHidePlanesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         showHidePlanesButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         showHidePlanesButton.addTarget(self, action: #selector(showHideButtonTouchUp), for: .touchUpInside)
+        
+        view.addSubview(enterGameNameButton)
+        enterGameNameButton.backgroundColor = UIColor.green
+        enterGameNameButton.translatesAutoresizingMaskIntoConstraints = false
+        enterGameNameButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        enterGameNameButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        enterGameNameButton.addTarget(self, action: #selector(showGameEntryBox), for: .touchUpInside)
     }
 }
