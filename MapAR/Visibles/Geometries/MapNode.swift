@@ -15,7 +15,7 @@ class MapNode : SCNNode {
     public private(set) var hasRendered: Bool =  false
     public var image : UIImage = UIImage() {
         didSet {
-            setPlaneImage(image: image)
+            setPlaneImage(image: image, planeAnchor: planeAnchor)
         }
     }
     public var isMain : Bool = false {
@@ -71,10 +71,27 @@ class MapNode : SCNNode {
         setup()
     }
     
-    private func setPlaneImage(image: UIImage){
-        planeNode?.geometry?.firstMaterial?.diffuse.contents = image
-        (planeNode?.geometry as! SCNPlane).width = image.size.width;
-        (planeNode?.geometry as! SCNPlane).height = image.size.height;
+    private func setPlaneImage(image: UIImage, planeAnchor: ARPlaneAnchor){
+        var extentX = CGFloat(planeAnchor.extent.x)
+        var extentZ = CGFloat(planeAnchor.extent.z)
+        
+        if(extentX > extentZ){
+            //use plane width, adjust to image height
+            let multiplier = image.size.width / extentX
+            extentZ = image.size.height / multiplier;
+        }
+        else{
+            // use plane height, adjust to image width
+            let multiplier = image.size.height / extentZ
+            extentX = image.size.width / multiplier;
+        }
+        
+        let plane = SCNPlane(width: extentX, height: extentZ)
+        
+        plane.firstMaterial?.diffuse.contents = image
+        planeNode?.geometry = plane
+        
+        hasRendered = true
     }
     
     private func setPlaneNodeColor(color : UIColor){
@@ -82,16 +99,8 @@ class MapNode : SCNNode {
     }
     
     private func setPosition(nextPlaneAnchor: ARPlaneAnchor) {
-        var extentX = nextPlaneAnchor.extent.x
-        var extentZ = nextPlaneAnchor.extent.z
-        
-        let plane = SCNPlane(width: CGFloat(extentX), height: CGFloat(extentZ))
-        
-        planeNode?.geometry = plane
         let x = nextPlaneAnchor.center.x
         let y = nextPlaneAnchor.center.z
         planeNode?.simdPosition = float3(x: x, y: 0, z: y)
-        
-        hasRendered = true
     }
 }

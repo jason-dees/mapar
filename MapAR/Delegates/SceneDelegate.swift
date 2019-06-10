@@ -12,7 +12,11 @@ import ARKit
 class SceneDelegate : NSObject, ARSCNViewDelegate {
 
     var _isFirst : Bool = true;
-    var _image : UIImage = UIImage();
+    var _image : UIImage = UIImage() {
+        didSet {
+            displayedNode.image = self._image
+        }
+    };
     
     var planes : Array<MapNode> = Array()
     var displayedNode : MapNode {
@@ -41,7 +45,6 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
     public var gameCode: String = ""{
         didSet {
             downloadMapData(from: gameCode)
-            displayedNode.image = self._image
         }
     }
     
