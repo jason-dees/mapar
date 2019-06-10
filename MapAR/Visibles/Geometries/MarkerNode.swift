@@ -11,9 +11,18 @@ import ARKit
 
 class MarkerNode : SCNNode {
 
-    let box : SCNBox = SCNBox()
+    let box : SCNBox = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
     public var markerId : String = "" {
         didSet {}
+    }
+    
+    public var x : Int = 0
+    public var y : Int = 0
+    
+    init(markerId: String) {
+        super.init()
+        setup()
+        self.markerId = markerId
     }
     
     override init(){
