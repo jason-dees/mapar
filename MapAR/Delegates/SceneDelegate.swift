@@ -51,6 +51,7 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
     }
     
     override init(){
+        //Will probably want to do some observer pattern stuff with the MaprGame
     }
     
     // MARK: - ARSCNViewDelegate
