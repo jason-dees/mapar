@@ -44,9 +44,12 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    public var gameCode: String = ""{
+    public private(set) var game : MaprGame!
+    
+    public var gameCode: String = "" {
         didSet {
-            downloadMapData(from: gameCode)
+            //How do i check the status of when a game is ready to go?
+            game = MaprGame(from: gameCode)
         }
     }
     
@@ -100,33 +103,5 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    private static func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
     
-    private func downloadMapData(from gameCode: String){
-        let mapUrl = URL(string: "https://maprfunctions.azurewebsites.net/api/games/\(gameCode)/activemap/image")!
-        downloadImage(from: mapUrl)
-        let markerUrl = URL(string: "https://maprfunctions.azurewebsites.net/api/games/\(gameCode)/activemap/markers")!
-        downloadMarkerData(from: markerUrl)
-    }
-    
-    private func downloadImage(from url: URL){
-        SceneDelegate.getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async() {
-                self._image = UIImage(data: data)!
-            }
-        }
-    }
-    
-    private func downloadMarkerData(from url: URL){
-        SceneDelegate.getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async() {
-                var json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary
-            }
-        }
-    }
 }

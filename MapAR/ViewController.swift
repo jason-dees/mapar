@@ -16,15 +16,18 @@ class ViewController: UIViewController {
         let arview = ARSCNView();
         return arview;
     }()
+    
     private let sessionInfoView: UIView = {
         return UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     }()
+    
     private let sessionInfoLabel: UILabel = {
         let uiLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         uiLabel.text = "this is some text"
         uiLabel.textAlignment = .center
         return uiLabel
     }()
+    
     private let showHidePlanesButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         button.setTitle("Show Planes", for: .normal)
