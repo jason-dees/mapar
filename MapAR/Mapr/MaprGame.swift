@@ -37,36 +37,6 @@ class MaprGame {
     func changeGame(from gameId: String){
     
     }
-    
-    private static func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    
-    private func downloadMapData(){
-        let mapUrl = URL(string: "https://maprfunctions.azurewebsites.net/api/games/\(self.activeGameId)/activemap/image")!
-        downloadImage(from: mapUrl)
-        let markerUrl = URL(string: "https://maprfunctions.azurewebsites.net/api/games/\(self.activeGameId)/activemap/markers")!
-        downloadMarkerData(from: markerUrl)
-    }
-    
-    private func downloadImage(from url: URL){
-        MaprGame.getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async() {
-                self.primaryMapImageData = UIImage(data: data)!
-            }
-        }
-    }
-    
-    private func downloadMarkerData(from url: URL){
-        MaprGame.getData(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async() {
-                var json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary
-            }
-        }
-    }
 }
 
 extension MaprGame {
