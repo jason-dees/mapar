@@ -10,6 +10,9 @@
 		5A0C4EFF22AED0700061FA65 /* MarkerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4EFE22AED06F0061FA65 /* MarkerNode.swift */; };
 		5A0C4F0222AFD81F0061FA65 /* MaprCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0122AFD81F0061FA65 /* MaprCommunicator.swift */; };
 		5A0C4F0422AFD8C40061FA65 /* MaprGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0322AFD8C40061FA65 /* MaprGame.swift */; };
+		5A0C4F0722B7D0B60061FA65 /* GameMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0622B7D0B60061FA65 /* GameMap.swift */; };
+		5A0C4F0922B7D11F0061FA65 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0822B7D11F0061FA65 /* MapMarker.swift */; };
+		5A0C4F0B22B7DED90061FA65 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0A22B7DED90061FA65 /* Game.swift */; };
 		A34A5BBD22A44B9D000342A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */; };
 		A34A5BBF22A44B9D000342A7 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A34A5BBE22A44B9D000342A7 /* art.scnassets */; };
 		A34A5BC122A44B9D000342A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BC022A44B9D000342A7 /* ViewController.swift */; };
@@ -24,6 +27,9 @@
 		5A0C4EFE22AED06F0061FA65 /* MarkerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerNode.swift; sourceTree = "<group>"; };
 		5A0C4F0122AFD81F0061FA65 /* MaprCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaprCommunicator.swift; sourceTree = "<group>"; };
 		5A0C4F0322AFD8C40061FA65 /* MaprGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaprGame.swift; sourceTree = "<group>"; };
+		5A0C4F0622B7D0B60061FA65 /* GameMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMap.swift; sourceTree = "<group>"; };
+		5A0C4F0822B7D11F0061FA65 /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
+		5A0C4F0A22B7DED90061FA65 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		A34A5BB922A44B9D000342A7 /* MapAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A34A5BBE22A44B9D000342A7 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -50,10 +56,21 @@
 		5A0C4F0022AFD7CE0061FA65 /* Mapr */ = {
 			isa = PBXGroup;
 			children = (
+				5A0C4F0522B7D08C0061FA65 /* Models */,
 				5A0C4F0122AFD81F0061FA65 /* MaprCommunicator.swift */,
 				5A0C4F0322AFD8C40061FA65 /* MaprGame.swift */,
 			);
 			path = Mapr;
+			sourceTree = "<group>";
+		};
+		5A0C4F0522B7D08C0061FA65 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5A0C4F0622B7D0B60061FA65 /* GameMap.swift */,
+				5A0C4F0822B7D11F0061FA65 /* MapMarker.swift */,
+				5A0C4F0A22B7DED90061FA65 /* Game.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A34A5BB022A44B9D000342A7 = {
@@ -184,12 +201,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A0C4F0722B7D0B60061FA65 /* GameMap.swift in Sources */,
 				A34A5BC122A44B9D000342A7 /* ViewController.swift in Sources */,
 				5A0C4F0222AFD81F0061FA65 /* MaprCommunicator.swift in Sources */,
 				A34A5BBD22A44B9D000342A7 /* AppDelegate.swift in Sources */,
 				5A0C4F0422AFD8C40061FA65 /* MaprGame.swift in Sources */,
 				A34A5BD822A44DC4000342A7 /* BuildingBox.swift in Sources */,
 				A34A5BD222A44D1D000342A7 /* SceneDelegate.swift in Sources */,
+				5A0C4F0B22B7DED90061FA65 /* Game.swift in Sources */,
+				5A0C4F0922B7D11F0061FA65 /* MapMarker.swift in Sources */,
 				A34A5BD422A44D69000342A7 /* SessionDelegate.swift in Sources */,
 				A34A5BDD22A44E0B000342A7 /* MapNode.swift in Sources */,
 				5A0C4EFF22AED0700061FA65 /* MarkerNode.swift in Sources */,

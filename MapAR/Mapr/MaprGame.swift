@@ -11,16 +11,38 @@ import ARKit
 
 class MaprGame {
 
-    public private(set) var activeGameId : String
+    public private(set) var activeGameId : String = "-1" {
+        didSet {
+            communicator.getGameData(from: activeGameId,  completion: {data in
+                let decoder = JSONDecoder()
+                do{
+                    self.game = try decoder.decode(Game.self, from: data)                }
+                catch{
+                    print(error)
+                    return
+                }
+            })
+        }
+    }
     public private(set) var primaryMapImageData : UIImage = UIImage() {
         didSet{
+            print("Triggering map loaded closures")
             observations.mapImageLoaded.forEach { (key, closure) in
                 closure(self)
             }
         }
     }
     
-    private var activeMaps : Set<String>
+    private var game : Game{
+        didSet {
+            if(game.id == activeGameId){
+                //Start loading everything else
+                communicator.getMapImage(from: game.id, from: game.primaryMapId, completion: {data in
+                    self.primaryMapImageData = UIImage(data: data) ?? UIImage()
+                })
+            }
+        }
+    }
     private var observations = (
         mapImageLoaded: [UUID : (MaprGame) -> Void](),
         mapMakersLoaded: [UUID : (MaprGame) -> Void]()
@@ -28,14 +50,13 @@ class MaprGame {
     
     let communicator : MaprCommunicator
 
-    init(from gameId: String){
-        communicator = MaprCommunicator(from: "https://maprfunctions.azurewebsites.net")
-        activeMaps = []
-        activeGameId = gameId
+    init(){
+        communicator = MaprCommunicator(from: "https://maprfunctions.azurewebsites.net/api")
+        game = Game()
     }
     
     func changeGame(from gameId: String){
-    
+        activeGameId = gameId
     }
 }
 

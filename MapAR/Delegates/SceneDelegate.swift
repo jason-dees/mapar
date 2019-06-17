@@ -12,7 +12,7 @@ import ARKit
 class SceneDelegate : NSObject, ARSCNViewDelegate {
 
     var _isFirst : Bool = true;
-    var _image : UIImage = UIImage() {
+    var _image : UIImage = UIImage(named: "default-map")! {
         didSet {
             if(planes.count > 0){
                 displayedNode.image = self._image
@@ -49,12 +49,20 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
     public var gameCode: String = "" {
         didSet {
             //How do i check the status of when a game is ready to go?
-            game = MaprGame(from: gameCode)
+            self._image = UIImage(named: "default-map")!
+            game.changeGame(from: gameCode)
         }
     }
     
     override init(){
         //Will probably want to do some observer pattern stuff with the MaprGame
+        super.init()
+        game = MaprGame()
+        game.addMapImageLoadedObserver(self) {
+            delegate, maprGame in
+            print("Setting map image")
+            self._image = maprGame.primaryMapImageData
+        }
     }
     
     // MARK: - ARSCNViewDelegate
@@ -77,6 +85,7 @@ class SceneDelegate : NSObject, ARSCNViewDelegate {
         newNode.isMain = _isFirst
         if(_isFirst){
             newNode.isHidden = false;
+            newNode.image = self._image
             _isFirst = false;
         }
         else{
