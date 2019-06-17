@@ -17,7 +17,7 @@
 		A34A5BBF22A44B9D000342A7 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A34A5BBE22A44B9D000342A7 /* art.scnassets */; };
 		A34A5BC122A44B9D000342A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BC022A44B9D000342A7 /* ViewController.swift */; };
 		A34A5BC622A44B9D000342A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A34A5BC522A44B9D000342A7 /* Assets.xcassets */; };
-		A34A5BD222A44D1D000342A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BD122A44D1D000342A7 /* SceneDelegate.swift */; };
+		A34A5BD222A44D1D000342A7 /* MaprSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BD122A44D1D000342A7 /* MaprSceneDelegate.swift */; };
 		A34A5BD422A44D69000342A7 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BD322A44D69000342A7 /* SessionDelegate.swift */; };
 		A34A5BD822A44DC4000342A7 /* BuildingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BD722A44DC4000342A7 /* BuildingBox.swift */; };
 		A34A5BDD22A44E0B000342A7 /* MapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BDC22A44E0B000342A7 /* MapNode.swift */; };
@@ -36,7 +36,7 @@
 		A34A5BC022A44B9D000342A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A34A5BC522A44B9D000342A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A34A5BCA22A44B9D000342A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A34A5BD122A44D1D000342A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A34A5BD122A44D1D000342A7 /* MaprSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaprSceneDelegate.swift; sourceTree = "<group>"; };
 		A34A5BD322A44D69000342A7 /* SessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
 		A34A5BD722A44DC4000342A7 /* BuildingBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingBox.swift; sourceTree = "<group>"; };
 		A34A5BDC22A44E0B000342A7 /* MapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNode.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */,
-				A34A5BD122A44D1D000342A7 /* SceneDelegate.swift */,
+				A34A5BD122A44D1D000342A7 /* MaprSceneDelegate.swift */,
 				A34A5BD322A44D69000342A7 /* SessionDelegate.swift */,
 			);
 			path = Delegates;
@@ -207,7 +207,7 @@
 				A34A5BBD22A44B9D000342A7 /* AppDelegate.swift in Sources */,
 				5A0C4F0422AFD8C40061FA65 /* MaprGame.swift in Sources */,
 				A34A5BD822A44DC4000342A7 /* BuildingBox.swift in Sources */,
-				A34A5BD222A44D1D000342A7 /* SceneDelegate.swift in Sources */,
+				A34A5BD222A44D1D000342A7 /* MaprSceneDelegate.swift in Sources */,
 				5A0C4F0B22B7DED90061FA65 /* Game.swift in Sources */,
 				5A0C4F0922B7D11F0061FA65 /* MapMarker.swift in Sources */,
 				A34A5BD422A44D69000342A7 /* SessionDelegate.swift in Sources */,

@@ -40,13 +40,13 @@ class ViewController: UIViewController {
         return button
     }()
     
-    var sceneDelegate : SceneDelegate!
+    var sceneDelegate : MaprSceneDelegate!
     var sessionDelegate : SessionDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
         buildUI()
         // Create a new scene
-        sceneDelegate = SceneDelegate()
+        sceneDelegate = MaprSceneDelegate()
         sessionDelegate = SessionDelegate(label: sessionInfoLabel, view: sessionInfoView)
         sceneView.delegate = sceneDelegate
         sceneView.session.delegate = sessionDelegate
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
     
-    @IBAction func showHideButtonTouchUp(_ sender: Any) {
+    @objc func showHideButtonTouchUp(_ sender: Any) {
         sceneDelegate.showNewPlacements = !sceneDelegate.showNewPlacements
         
         let titleString = sceneDelegate.showNewPlacements ? "Hide Planes" : "Show Planes"
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func showGameEntryBox(_ sender: Any){
+    @objc func showGameEntryBox(_ sender: Any){
         let alert = UIAlertController(title: "Enter Game Code",
                                       message: "Please input the alphanumeric gamecode",
                                       
@@ -95,7 +95,21 @@ class ViewController: UIViewController {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){ (alertAction) in }
         let action = UIAlertAction(title: "Done", style: .default) { (alertAction) in
-            self.sceneDelegate.gameCode = (alert.textFields![0] as UITextField).text ?? ""
+            
+            
+            let loadingAlert = UIAlertController(title: nil, message: "Loading Game Data...", preferredStyle: .alert)
+            
+            let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+            loadingIndicator.hidesWhenStopped = true
+            loadingIndicator.style = UIActivityIndicatorView.Style.gray
+            loadingIndicator.startAnimating();
+            
+            loadingAlert.view.addSubview(loadingIndicator)
+            self.present(loadingAlert, animated: true, completion: nil)
+            
+            self.sceneDelegate.changeGame(from: (alert.textFields![0] as UITextField).text ?? "", onFinished: {
+                self.dismiss(animated: false, completion: nil)
+            })
         }
         
         alert.addAction(action)
@@ -132,14 +146,14 @@ class ViewController: UIViewController {
         showHidePlanesButton.backgroundColor = UIColor.green
         showHidePlanesButton.translatesAutoresizingMaskIntoConstraints = false
         showHidePlanesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        showHidePlanesButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        showHidePlanesButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
         showHidePlanesButton.addTarget(self, action: #selector(showHideButtonTouchUp), for: .touchUpInside)
         
         view.addSubview(enterGameNameButton)
         enterGameNameButton.backgroundColor = UIColor.green
         enterGameNameButton.translatesAutoresizingMaskIntoConstraints = false
         enterGameNameButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        enterGameNameButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        enterGameNameButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
         enterGameNameButton.addTarget(self, action: #selector(showGameEntryBox), for: .touchUpInside)
     }
 }
