@@ -11,22 +11,10 @@ import ARKit
 
 class MaprGame {
 
-    public private(set) var activeGameId : String = "-1" {
-        didSet {
-            communicator.getGameData(from: activeGameId,  completion: {data in
-                let decoder = JSONDecoder()
-                do{
-                    self.game = try decoder.decode(Game.self, from: data)                }
-                catch{
-                    print(error)
-                    return
-                }
-            })
-        }
-    }
+    public private(set) var activeGameId : String = "-1"
+    
     public private(set) var primaryMapImageData : UIImage = UIImage() {
         didSet{
-            print("Triggering map loaded closures")
             observations.mapImageLoaded.forEach { (key, closure) in
                 closure(self)
             }
@@ -55,8 +43,19 @@ class MaprGame {
         game = Game()
     }
     
-    func changeGame(from gameId: String){
+    func changeGame(from gameId: String, onFinished:@escaping (String)->() = {status in } ){
         activeGameId = gameId
+        communicator.getGameData(from: activeGameId,  completion: {data in
+            let decoder = JSONDecoder()
+            do{
+                self.game = try decoder.decode(Game.self, from: data)
+                onFinished("")
+            }
+            catch {
+                onFinished(error.localizedDescription)
+                return
+            }
+        })
     }
 }
 
@@ -75,7 +74,6 @@ extension MaprGame {
             
             closure(observer, game)
         }
-        
         return ObservationToken { [weak self] in
             self?.observations.mapImageLoaded.removeValue(forKey: id)
         }

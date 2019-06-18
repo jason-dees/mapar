@@ -108,7 +108,10 @@ class ViewController: UIViewController {
             self.present(loadingAlert, animated: true, completion: nil)
             
             self.sceneDelegate.changeGame(from: (alert.textFields![0] as UITextField).text ?? "", onFinished: {
+                status in
                 self.dismiss(animated: false, completion: nil)
+                if status == "" { return }
+                
             })
         }
         

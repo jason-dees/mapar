@@ -57,9 +57,9 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    func changeGame(from gameCode:String, onFinished:()->() = {} ){
+    func changeGame(from gameCode:String, onFinished:@escaping (String)->() = {status in } ){
         self._image = UIImage(named: "default-map")!
-        game.changeGame(from: gameCode)
+        game.changeGame(from: gameCode, onFinished: onFinished)
     }
     
     // MARK: - ARSCNViewDelegate
