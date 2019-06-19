@@ -121,6 +121,10 @@ class ViewController: UIViewController {
         self.present(alert, animated:true, completion: nil)
     }
     
+    @objc func screenZoom(_ sender: Any){
+        
+    }
+    
     private func buildUI() {
         view.backgroundColor = UIColor.red
         
