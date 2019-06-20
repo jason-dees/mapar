@@ -38,8 +38,8 @@ class MaprGame {
     
     let communicator : MaprCommunicator
 
-    init(){
-        communicator = MaprCommunicator(from: "https://maprfunctions.azurewebsites.net/api")
+    init(communicator: MaprCommunicator = MaprCommunicator(from: "https://maprfunctions.azurewebsites.net/api")){
+        self.communicator = communicator
         game = Game()
     }
     
@@ -58,7 +58,7 @@ class MaprGame {
         })
     }
 }
-
+//https://www.swiftbysundell.com/posts/observers-in-swift-part-2
 extension MaprGame {
     @discardableResult
     func addMapImageLoadedObserver<T: AnyObject>(_ observer: T, closure: @escaping (T, MaprGame) -> Void) -> ObservationToken {

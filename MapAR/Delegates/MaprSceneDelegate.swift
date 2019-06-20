@@ -46,10 +46,9 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
     
     public private(set) var game : MaprGame!
     
-    override init(){
-        //Will probably want to do some observer pattern stuff with the MaprGame
+    init(game: MaprGame = MaprGame()){
+        self.game = game
         super.init()
-        game = MaprGame()
         game.addMapImageLoadedObserver(self) {
             sceneDelegate, maprGame in
             print("Setting map image")

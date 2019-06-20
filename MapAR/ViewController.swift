@@ -11,29 +11,29 @@ import ARKit
 
 class ViewController: UIViewController {
     
-    private let sceneView: ARSCNView = {
+    let sceneView: ARSCNView = {
         let arview = ARSCNView();
         return arview;
     }()
     
-    private let sessionInfoView: UIView = {
+    let sessionInfoView: UIView = {
         return UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     }()
     
-    private let sessionInfoLabel: UILabel = {
+    let sessionInfoLabel: UILabel = {
         let uiLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         uiLabel.text = "this is some text"
         uiLabel.textAlignment = .center
         return uiLabel
     }()
     
-    private let showHidePlanesButton: UIButton = {
+    let showHidePlanesButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         button.setTitle("Show Planes", for: .normal)
         return button
     }()
     
-    private let enterGameNameButton: UIButton = {
+    let enterGameNameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         button.setTitle("Enter Game", for: .normal)
         return button
@@ -43,13 +43,13 @@ class ViewController: UIViewController {
     var sessionDelegate : SessionDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
-        buildUI()
         // Create a new scene
         sceneDelegate = MaprSceneDelegate()
         sessionDelegate = SessionDelegate(label: sessionInfoLabel, view: sessionInfoView)
         sceneView.delegate = sceneDelegate
         sceneView.session.delegate = sessionDelegate
         //sceneView.showsStatistics = true
+        buildUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,46 +120,5 @@ class ViewController: UIViewController {
         self.present(alert, animated:true, completion: nil)
     }
     
-    @objc func screenZoom(_ sender: Any){
-        
-    }
-    
-    private func buildUI() {
-        view.backgroundColor = UIColor.red
-        
-        view.addSubview(sceneView)
-        sceneView.translatesAutoresizingMaskIntoConstraints = false
-        sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        sceneView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        sceneView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        sceneView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        view.addSubview(sessionInfoView)
-        sessionInfoView.translatesAutoresizingMaskIntoConstraints = false
-        sessionInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        sessionInfoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        sessionInfoView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        sessionInfoView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        sessionInfoView.addSubview(sessionInfoLabel)
-        sessionInfoLabel.backgroundColor = UIColor.green
-        sessionInfoLabel.translatesAutoresizingMaskIntoConstraints = false
-        sessionInfoLabel.leadingAnchor.constraint(equalTo: sessionInfoView.leadingAnchor).isActive = true
-        sessionInfoLabel.trailingAnchor.constraint(equalTo: sessionInfoView.trailingAnchor).isActive = true
-        sessionInfoLabel.bottomAnchor.constraint(equalTo: sessionInfoView.bottomAnchor, constant: -20).isActive = true
-        
-        view.addSubview(showHidePlanesButton)
-        showHidePlanesButton.backgroundColor = UIColor.green
-        showHidePlanesButton.translatesAutoresizingMaskIntoConstraints = false
-        showHidePlanesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        showHidePlanesButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        showHidePlanesButton.addTarget(self, action: #selector(showHideButtonTouchUp), for: .touchUpInside)
-        
-        view.addSubview(enterGameNameButton)
-        enterGameNameButton.backgroundColor = UIColor.green
-        enterGameNameButton.translatesAutoresizingMaskIntoConstraints = false
-        enterGameNameButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        enterGameNameButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        enterGameNameButton.addTarget(self, action: #selector(showGameEntryBox), for: .touchUpInside)
-    }
+  
 }

@@ -10,9 +10,8 @@ import Foundation
 import ARKit
 
 class MapNode : SCNNode {
-    
+    //This is too tied to plane anchors and makes me sad
     var planeNode : SCNNode!
-    public private(set) var hasRendered: Bool =  false
     public var image : UIImage = UIImage() {
         didSet {
             setPlaneImage(image: image, planeAnchor: planeAnchor)
@@ -24,33 +23,27 @@ class MapNode : SCNNode {
             setPlaneNodeColor(color : color)
         }
     }
-    public var isMain : Bool = false {
-        didSet{
-            let color = isMain ? UIColor.red : UIColor.green
-            if(!isMain){
-                setPlaneNodeColor(color: color)
-            }
-        }
-    };
+    public var isMain : Bool = false
+    
     public var planeAnchor: ARPlaneAnchor!{
         didSet{
-            setPosition(nextPlaneAnchor: planeAnchor)
+            setSize(planeAnchor: planeAnchor)
+            setPosition(planeAnchor: planeAnchor)
+        }
+    }
+    
+    private var plane: SCNPlane {
+        get {
+            var plane = planeNode?.geometry as? SCNPlane
+            if(plane == nil){
+                plane = SCNPlane()
+                planeNode?.geometry = plane
+            }
+            return plane!
         }
     }
     
     var _constraint: SCNTransformConstraint!
-    
-    private func setup(){
-        //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        //        cityNode = scene.rootNode
-        
-        planeNode = SCNNode()
-        planeNode.name = "plane"
-        planeNode?.eulerAngles.x = -.pi / 2
-        planeNode?.opacity = 1
-        buildConstraint()
-        self.addChildNode(planeNode)
-    }
     
     init(anchor:  ARPlaneAnchor){
         super.init()
@@ -65,6 +58,18 @@ class MapNode : SCNNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+    }
+    
+    private func setup(){
+        //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        //        cityNode = scene.rootNode
+        
+        planeNode = SCNNode()
+        planeNode.name = "plane"
+        planeNode?.eulerAngles.x = -.pi / 2
+        planeNode?.opacity = 1
+        buildConstraint()
+        self.addChildNode(planeNode)
     }
     
     private func setPlaneImage(image: UIImage, planeAnchor: ARPlaneAnchor){
@@ -82,30 +87,38 @@ class MapNode : SCNNode {
             extentX = image.size.width / multiplier;
         }
         
-        let plane = SCNPlane(width: extentX, height: extentZ)
-        
-        plane.firstMaterial?.diffuse.contents = image
-        planeNode?.geometry = plane
-        
-        hasRendered = true
+        self.setSize(width: extentX, height: extentZ)
+        self.plane.firstMaterial?.diffuse.contents = image
     }
     
     func setPlaneNodeColor(color : UIColor){
-        let extentX = CGFloat(planeAnchor.extent.x)
-        let extentZ = CGFloat(planeAnchor.extent.z)
-        let plane = SCNPlane(width: extentX, height: extentZ)
-        
-        plane.firstMaterial?.diffuse.contents = image
-        planeNode?.geometry = plane
-        
-        hasRendered = true
-        planeNode?.geometry?.firstMaterial?.diffuse.contents = color
+        self.plane.firstMaterial?.diffuse.contents = color
+        self.plane.firstMaterial?.transparency = CGFloat(0.5)
     }
     
-    private func setPosition(nextPlaneAnchor: ARPlaneAnchor) {
-        let x = nextPlaneAnchor.center.x
-        let y = nextPlaneAnchor.center.z
-        planeNode?.simdPosition = float3(x: x, y: 0, z: y)
+    func setSize(planeAnchor: ARPlaneAnchor){
+        let extentX = CGFloat(planeAnchor.extent.x)
+        let extentZ = CGFloat(planeAnchor.extent.z)
+        setSize(width: extentX, height: extentZ)
+    }
+    
+    func setSize(width: CGFloat, height: CGFloat){
+        self.plane.width = width
+        self.plane.height = height
+    }
+    
+    func setPosition(planeAnchor: ARPlaneAnchor) {
+        let x = planeAnchor.center.x
+        let y = planeAnchor.center.z
+        setPosition(x: x, y: 0, z: y)
+    }
+    
+    func setPosition(x: Float, y: Float, z: Float){
+        setPosition(at: float3(x: x, y: y, z: y))
+    }
+    
+    func setPosition(at: float3){
+        planeNode?.simdPosition = at
     }
     
     private func buildConstraint(){
