@@ -18,6 +18,12 @@ class MapNode : SCNNode {
             setPlaneImage(image: image, planeAnchor: planeAnchor)
         }
     }
+    
+    public var color: UIColor = .orange {
+        didSet{
+            setPlaneNodeColor(color : color)
+        }
+    }
     public var isMain : Bool = false {
         didSet{
             let color = isMain ? UIColor.red : UIColor.green
@@ -35,7 +41,6 @@ class MapNode : SCNNode {
     var _constraint: SCNTransformConstraint!
     
     private func setup(){
-        
         //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
         //        cityNode = scene.rootNode
         
@@ -45,6 +50,12 @@ class MapNode : SCNNode {
         planeNode?.opacity = 1
         buildConstraint()
         self.addChildNode(planeNode)
+    }
+    
+    init(anchor:  ARPlaneAnchor){
+        super.init()
+        setup()
+        planeAnchor = anchor
     }
     override init(){
         super.init()
@@ -79,7 +90,15 @@ class MapNode : SCNNode {
         hasRendered = true
     }
     
-    private func setPlaneNodeColor(color : UIColor){
+    func setPlaneNodeColor(color : UIColor){
+        let extentX = CGFloat(planeAnchor.extent.x)
+        let extentZ = CGFloat(planeAnchor.extent.z)
+        let plane = SCNPlane(width: extentX, height: extentZ)
+        
+        plane.firstMaterial?.diffuse.contents = image
+        planeNode?.geometry = plane
+        
+        hasRendered = true
         planeNode?.geometry?.firstMaterial?.diffuse.contents = color
     }
     

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 import ARKit
 
 class ViewController: UIViewController {
@@ -50,7 +49,7 @@ class ViewController: UIViewController {
         sessionDelegate = SessionDelegate(label: sessionInfoLabel, view: sessionInfoView)
         sceneView.delegate = sceneDelegate
         sceneView.session.delegate = sessionDelegate
-        sceneView.showsStatistics = true
+        //sceneView.showsStatistics = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,8 +57,8 @@ class ViewController: UIViewController {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal];
         
+        configuration.planeDetection = [.horizontal, .vertical]
         // Run the view's session
         sceneView.session.run(configuration)
     }

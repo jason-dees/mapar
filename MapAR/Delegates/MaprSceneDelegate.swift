@@ -33,7 +33,7 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    public var showNewPlacements: Bool = false {
+    public var showNewPlacements: Bool = true {
         didSet {
             if(showNewPlacements){
                 self.showOtherPlanes()
@@ -66,30 +66,27 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
     
     // Override to create and configure nodes for anchors added to the view's session.
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return SCNNode()}
         
+        let node = MapNode(anchor: planeAnchor)
+        node.isMain = _isFirst
+        if(_isFirst){
+            node.isHidden = false;
+            node.image = self._image
+            _isFirst = false;
+        }
+        else{
+            node.isHidden = !showNewPlacements
+            node.color = .orange
+        }
         return node
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         // Place content only for anchors found by plane detection.
-        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        guard let mapNode = node as? MapNode else { return }
         
-        // Create a SceneKit plane to visualize the plane anchor using its position and extent.
-        
-        let newNode = MapNode()
-        newNode.planeAnchor = planeAnchor
-        newNode.isMain = _isFirst
-        if(_isFirst){
-            newNode.isHidden = false;
-            newNode.image = self._image
-            _isFirst = false;
-        }
-        else{
-            newNode.isHidden = !showNewPlacements
-        }
-        node.addChildNode(newNode)
-        planes.append(newNode)
+        planes.append(mapNode)
     }
     
     /// - Tag: UpdateARContent
@@ -104,7 +101,7 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
     }
     
     func showOtherPlanes(){
-        for otherPlane in otherPlanes.filter({ !$0.hasRendered }) {
+        for otherPlane in otherPlanes {
             otherPlane.isHidden = false
         }
     }
