@@ -11,7 +11,7 @@ import ARKit
 
 class MarkerNode : SCNNode {
 
-    let box : SCNBox = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0)
+    let box : SCNBox = SCNBox(width: 100, height: 100, length: 100, chamferRadius: 0)
     public var markerId : String = "" {
         didSet {}
     }
@@ -36,6 +36,7 @@ class MarkerNode : SCNNode {
     }
     
     private func setup(){
+        box.firstMaterial?.diffuse.contents = UIColor.red
         self.geometry = box
     }
 }

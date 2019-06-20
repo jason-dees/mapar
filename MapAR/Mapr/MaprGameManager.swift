@@ -21,6 +21,12 @@ class MaprGameManager {
         }
     }
     
+    public var markers : [MapMarker] {
+        get {
+            return self.game.maps.first(where: {$0.isPrimary})?.markers ?? []
+        }
+    }
+    
     private var game : Game{
         didSet {
             if(game.id == activeGameId){

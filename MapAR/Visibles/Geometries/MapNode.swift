@@ -43,8 +43,6 @@ class MapNode : SCNNode {
         }
     }
     
-    var _constraint: SCNTransformConstraint!
-    
     init(anchor:  ARPlaneAnchor){
         super.init()
         setup()
@@ -66,26 +64,26 @@ class MapNode : SCNNode {
         planeNode.name = "plane"
         planeNode?.eulerAngles.x = -.pi / 2
         planeNode?.opacity = 1
-        buildConstraint()
         self.addChildNode(planeNode)
+        planeNode.constraints = [self.buildPlaneConstraint()]
     }
     
     private func setPlaneImage(image: UIImage, planeAnchor: ARPlaneAnchor){
-        var extentX = CGFloat(planeAnchor.extent.x)
-        var extentZ = CGFloat(planeAnchor.extent.z)
-        
-        if(extentX > extentZ){
-            //use plane width, adjust to image height
-            let multiplier = image.size.width / extentX
-            extentZ = image.size.height / multiplier;
-        }
-        else{
-            // use plane height, adjust to image width
-            let multiplier = image.size.height / extentZ
-            extentX = image.size.width / multiplier;
-        }
-        
-        self.setSize(width: extentX, height: extentZ)
+//        var extentX = CGFloat(planeAnchor.extent.x)
+//        var extentZ = CGFloat(planeAnchor.extent.z)
+//
+//        if(extentX > extentZ){
+//            //use plane width, adjust to image height
+//            let multiplier = image.size.width / extentX
+//            extentZ = image.size.height / multiplier;
+//        }
+//        else{
+//            // use plane height, adjust to image width
+//            let multiplier = image.size.height / extentZ
+//            extentX = image.size.width / multiplier;
+//        }
+//
+//        self.setSize(width: extentX, height: extentZ)
         self.plane.firstMaterial?.diffuse.contents = image
     }
     
@@ -119,22 +117,43 @@ class MapNode : SCNNode {
         planeNode?.simdPosition = at
     }
     
-    private func buildConstraint(){
-        _constraint = SCNTransformConstraint(inWorldSpace: false, with:{
+    func addMarker(marker: MapMarker){
+        let markerNode = MarkerNode(markerId: marker.id)
+        markerNode.constraints = [self.buildMarkerConstraint(marker: marker)]
+        self.addChildNode(markerNode)
+    }
+    
+    private func buildMarkerConstraint(marker: MapMarker) -> SCNTransformConstraint {
+        //so instead of doing this, i write a constraint for the planeNode
+        return SCNTransformConstraint(inWorldSpace: false, with:{
             node, transformMatrix in
-            
-            let width = MapNode.nodeWidth(node: self.planeNode)
-            let height = MapNode.nodeHeight(node: self.planeNode)
-            let cityWidth = MapNode.nodeWidth(node: node)
-            let cityHeight = MapNode.nodeHeight(node: node)
-            var scale = (width - 0.1)/cityWidth
-            if(width > height){
-                scale = (height - 0.1)/cityHeight
+            let width = self.image.size.width
+            let mapWidth = self.plane.width
+            var scale = width/mapWidth
+            if(width > mapWidth){
+                scale = mapWidth/width
             }
-            node.position = SCNVector3(x: self.planeNode.position.x,
-                                       y: cityHeight/2 * scale,
-                                       z: self.planeNode.position.z)
+            let newX = Float(marker.x) * Float(scale)
+            let newY = Float(marker.y) * Float(scale)
+            node.position = SCNVector3(x: newX,
+                                       y: 0,
+                                       z: newY)
             node.scale = SCNVector3(scale, scale, scale)
+            return node.transform
+        })
+    }
+    
+    private func buildPlaneConstraint() ->SCNTransformConstraint{
+        return SCNTransformConstraint(inWorldSpace: false, with:{
+            node, transformMatrix in
+            if(self.planeAnchor != nil){
+                let extentX = CGFloat(self.planeAnchor.extent.x)
+                let extentZ = CGFloat(self.planeAnchor.extent.z)
+                let xScale = extentX > self.image.size.width ? self.image.size.width / extentX : extentX / self.image.size.width
+                let zScale = extentZ > self.image.size.height ? self.image.size.height / extentZ : extentZ / self.image.size.height
+                node.scale = SCNVector3(xScale, 1, zScale)
+            }
+
             return node.transform
         })
     }

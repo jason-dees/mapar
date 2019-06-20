@@ -39,21 +39,22 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    public private(set) var game : MaprGameManager!
+    public private(set) var gameManager : MaprGameManager!
     
     init(game: MaprGameManager = MaprGameManager()){
-        self.game = game
+        self.gameManager = game
         super.init()
         game.addMapImageLoadedObserver(self) {
-            sceneDelegate, maprGame in
+            sceneDelegate, maprGameManager in
             print("Setting map image")
-            self._image = maprGame.primaryMapImageData
+            self._image = maprGameManager.primaryMapImageData
+            maprGameManager.markers.forEach({ self.displayedNode.addMarker(marker:$0) })
         }
     }
     
     func changeGame(from gameCode:String, onFinished:@escaping (String)->() = {status in } ){
         self._image = UIImage(named: "default-map")!
-        game.changeGame(from: gameCode, onFinished: onFinished)
+        gameManager.changeGame(from: gameCode, onFinished: onFinished)
     }
     
     // MARK: - ARSCNViewDelegate
