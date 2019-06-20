@@ -33,7 +33,7 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    public var hideNewPlacements: Bool = false {
+    public var hideNewPlacements: Bool = true {
         didSet {
             self.toggleOtherPlanes(isHidden: self.hideNewPlacements)
         }
