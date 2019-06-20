@@ -69,21 +69,21 @@ class MapNode : SCNNode {
     }
     
     private func setPlaneImage(image: UIImage, planeAnchor: ARPlaneAnchor){
-//        var extentX = CGFloat(planeAnchor.extent.x)
-//        var extentZ = CGFloat(planeAnchor.extent.z)
-//
-//        if(extentX > extentZ){
-//            //use plane width, adjust to image height
-//            let multiplier = image.size.width / extentX
-//            extentZ = image.size.height / multiplier;
-//        }
-//        else{
-//            // use plane height, adjust to image width
-//            let multiplier = image.size.height / extentZ
-//            extentX = image.size.width / multiplier;
-//        }
-//
-//        self.setSize(width: extentX, height: extentZ)
+        var extentX = CGFloat(planeAnchor.extent.x)
+        var extentZ = CGFloat(planeAnchor.extent.z)
+
+        if(extentX > extentZ){
+            //use plane width, adjust to image height
+            let multiplier = image.size.width / extentX
+            extentZ = image.size.height / multiplier;
+        }
+        else{
+            // use plane height, adjust to image width
+            let multiplier = image.size.height / extentZ
+            extentX = image.size.width / multiplier;
+        }
+
+        self.setSize(width: extentX, height: extentZ)
         self.plane.firstMaterial?.diffuse.contents = image
     }
     
@@ -124,21 +124,24 @@ class MapNode : SCNNode {
     }
     
     private func buildMarkerConstraint(marker: MapMarker) -> SCNTransformConstraint {
-        //so instead of doing this, i write a constraint for the planeNode
         return SCNTransformConstraint(inWorldSpace: false, with:{
             node, transformMatrix in
-            let width = self.image.size.width
-            let mapWidth = self.plane.width
-            var scale = width/mapWidth
-            if(width > mapWidth){
-                scale = mapWidth/width
+            
+            let imageWidth = self.image.size.width
+            let planeWidth = self.plane.width
+            var scale = imageWidth/planeWidth
+            if(imageWidth > planeWidth){
+                scale = planeWidth/imageWidth
             }
-            let newX = Float(marker.x) * Float(scale)
-            let newY = Float(marker.y) * Float(scale)
+            
+            let newX = Float(marker.x) * Float(scale) - Float(self.plane.width)/2
+            let newY = Float(marker.y) * Float(scale) - Float(self.plane.height)/2
+            //position from 0,0,0 ugh oh my god
             node.position = SCNVector3(x: newX,
                                        y: 0,
                                        z: newY)
             node.scale = SCNVector3(scale, scale, scale)
+            
             return node.transform
         })
     }
@@ -146,13 +149,6 @@ class MapNode : SCNNode {
     private func buildPlaneConstraint() ->SCNTransformConstraint{
         return SCNTransformConstraint(inWorldSpace: false, with:{
             node, transformMatrix in
-            if(self.planeAnchor != nil){
-                let extentX = CGFloat(self.planeAnchor.extent.x)
-                let extentZ = CGFloat(self.planeAnchor.extent.z)
-                let xScale = extentX > self.image.size.width ? self.image.size.width / extentX : extentX / self.image.size.width
-                let zScale = extentZ > self.image.size.height ? self.image.size.height / extentZ : extentZ / self.image.size.height
-                node.scale = SCNVector3(xScale, 1, zScale)
-            }
 
             return node.transform
         })
