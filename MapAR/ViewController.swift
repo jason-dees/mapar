@@ -57,7 +57,6 @@ class ViewController: UIViewController {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-        
         configuration.planeDetection = [.horizontal, .vertical]
         // Run the view's session
         sceneView.session.run(configuration)
@@ -75,9 +74,9 @@ class ViewController: UIViewController {
     }
     
     @objc func showHideButtonTouchUp(_ sender: Any) {
-        sceneDelegate.showNewPlacements = !sceneDelegate.showNewPlacements
+        sceneDelegate.hideNewPlacements = !sceneDelegate.hideNewPlacements
         
-        let titleString = sceneDelegate.showNewPlacements ? "Hide Planes" : "Show Planes"
+        let titleString = sceneDelegate.hideNewPlacements ? "Show Planes" : "Hide Planes"
         showHidePlanesButton.setTitle(titleString, for: .normal)
         
     }

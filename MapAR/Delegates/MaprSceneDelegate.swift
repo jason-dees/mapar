@@ -33,14 +33,9 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    public var showNewPlacements: Bool = true {
+    public var hideNewPlacements: Bool = false {
         didSet {
-            if(showNewPlacements){
-                self.showOtherPlanes()
-            }
-            else{
-                self.hideOtherPlanes()
-            }
+            self.toggleOtherPlanes(isHidden: self.hideNewPlacements)
         }
     }
     
@@ -75,7 +70,7 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
             _isFirst = false;
         }
         else{
-            node.isHidden = !showNewPlacements
+            node.isHidden = self.hideNewPlacements
             node.color = .orange
         }
         return node
@@ -93,15 +88,9 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         // Update content only for plane anchors and nodes matching the setup created in `renderer(_:didAdd:for:)`.
     }
     
-    func hideOtherPlanes(){
+    func toggleOtherPlanes(isHidden: Bool){
         for otherPlane in otherPlanes{
-            otherPlane.isHidden = true
-        }
-    }
-    
-    func showOtherPlanes(){
-        for otherPlane in otherPlanes {
-            otherPlane.isHidden = false
+            otherPlane.isHidden = isHidden
         }
     }
 }

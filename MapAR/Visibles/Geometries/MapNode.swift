@@ -61,9 +61,6 @@ class MapNode : SCNNode {
     }
     
     private func setup(){
-        //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        //        cityNode = scene.rootNode
-        
         planeNode = SCNNode()
         planeNode.name = "plane"
         planeNode?.eulerAngles.x = -.pi / 2
