@@ -50,6 +50,7 @@ class MapNode : SCNNode {
         setup()
         planeAnchor = anchor
     }
+    
     override init(){
         super.init()
         setup()

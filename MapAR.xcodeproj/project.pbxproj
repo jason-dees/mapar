@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A0C4EFF22AED0700061FA65 /* MarkerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4EFE22AED06F0061FA65 /* MarkerNode.swift */; };
 		5A0C4F0222AFD81F0061FA65 /* MaprCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0122AFD81F0061FA65 /* MaprCommunicator.swift */; };
-		5A0C4F0422AFD8C40061FA65 /* MaprGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0322AFD8C40061FA65 /* MaprGame.swift */; };
+		5A0C4F0422AFD8C40061FA65 /* MaprGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0322AFD8C40061FA65 /* MaprGameManager.swift */; };
 		5A0C4F0722B7D0B60061FA65 /* GameMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0622B7D0B60061FA65 /* GameMap.swift */; };
 		5A0C4F0922B7D11F0061FA65 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0822B7D11F0061FA65 /* MapMarker.swift */; };
 		5A0C4F0B22B7DED90061FA65 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0A22B7DED90061FA65 /* Game.swift */; };
@@ -28,7 +28,7 @@
 /* Begin PBXFileReference section */
 		5A0C4EFE22AED06F0061FA65 /* MarkerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerNode.swift; sourceTree = "<group>"; };
 		5A0C4F0122AFD81F0061FA65 /* MaprCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaprCommunicator.swift; sourceTree = "<group>"; };
-		5A0C4F0322AFD8C40061FA65 /* MaprGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaprGame.swift; sourceTree = "<group>"; };
+		5A0C4F0322AFD8C40061FA65 /* MaprGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaprGameManager.swift; sourceTree = "<group>"; };
 		5A0C4F0622B7D0B60061FA65 /* GameMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMap.swift; sourceTree = "<group>"; };
 		5A0C4F0822B7D11F0061FA65 /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
 		5A0C4F0A22B7DED90061FA65 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 			children = (
 				5A0C4F0522B7D08C0061FA65 /* Models */,
 				5A0C4F0122AFD81F0061FA65 /* MaprCommunicator.swift */,
-				5A0C4F0322AFD8C40061FA65 /* MaprGame.swift */,
+				5A0C4F0322AFD8C40061FA65 /* MaprGameManager.swift */,
 			);
 			path = Mapr;
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 				5A9A3F5C22BBCE210070E893 /* ViewController+UI.swift in Sources */,
 				5A0C4F0222AFD81F0061FA65 /* MaprCommunicator.swift in Sources */,
 				A34A5BBD22A44B9D000342A7 /* AppDelegate.swift in Sources */,
-				5A0C4F0422AFD8C40061FA65 /* MaprGame.swift in Sources */,
+				5A0C4F0422AFD8C40061FA65 /* MaprGameManager.swift in Sources */,
 				A34A5BD822A44DC4000342A7 /* BuildingBox.swift in Sources */,
 				A34A5BD222A44D1D000342A7 /* MaprSceneDelegate.swift in Sources */,
 				5A9A3F5E22BBD1220070E893 /* ViewController+UITapGestureRecognizer.swift in Sources */,

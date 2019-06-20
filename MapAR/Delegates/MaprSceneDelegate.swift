@@ -39,9 +39,9 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    public private(set) var game : MaprGame!
+    public private(set) var game : MaprGameManager!
     
-    init(game: MaprGame = MaprGame()){
+    init(game: MaprGameManager = MaprGameManager()){
         self.game = game
         super.init()
         game.addMapImageLoadedObserver(self) {

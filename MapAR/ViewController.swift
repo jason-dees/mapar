@@ -78,7 +78,6 @@ class ViewController: UIViewController {
         
         let titleString = sceneDelegate.hideNewPlacements ? "Show Planes" : "Hide Planes"
         showHidePlanesButton.setTitle(titleString, for: .normal)
-        
     }
     
     @objc func showGameEntryBox(_ sender: Any){

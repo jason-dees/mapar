@@ -9,7 +9,7 @@
 import Foundation
 import ARKit
 
-class MaprGame {
+class MaprGameManager {
 
     public private(set) var activeGameId : String = "-1"
     
@@ -25,15 +25,12 @@ class MaprGame {
         didSet {
             if(game.id == activeGameId){
                 //Start loading everything else
-                communicator.getMapImage(from: game.id, from: game.primaryMapId, completion: {data in
-                    self.primaryMapImageData = UIImage(data: data) ?? UIImage()
-                })
             }
         }
     }
     private var observations = (
-        mapImageLoaded: [UUID : (MaprGame) -> Void](),
-        mapMakersLoaded: [UUID : (MaprGame) -> Void]()
+        mapImageLoaded: [UUID : (MaprGameManager) -> Void](),
+        mapMakersLoaded: [UUID : (MaprGameManager) -> Void]()
     )
     
     let communicator : MaprCommunicator
@@ -49,7 +46,11 @@ class MaprGame {
             let decoder = JSONDecoder()
             do{
                 self.game = try decoder.decode(Game.self, from: data)
-                onFinished("")
+                
+                self.communicator.getMapImage(from: self.game.id, from: self.game.primaryMapId, completion: {data in
+                    self.primaryMapImageData = UIImage(data: data) ?? UIImage()
+                    onFinished("")
+                })
             }
             catch {
                 onFinished(error.localizedDescription)
@@ -59,9 +60,9 @@ class MaprGame {
     }
 }
 //https://www.swiftbysundell.com/posts/observers-in-swift-part-2
-extension MaprGame {
+extension MaprGameManager {
     @discardableResult
-    func addMapImageLoadedObserver<T: AnyObject>(_ observer: T, closure: @escaping (T, MaprGame) -> Void) -> ObservationToken {
+    func addMapImageLoadedObserver<T: AnyObject>(_ observer: T, closure: @escaping (T, MaprGameManager) -> Void) -> ObservationToken {
         let id = UUID()
         
         observations.mapImageLoaded[id] = { [weak self, weak observer] game in
