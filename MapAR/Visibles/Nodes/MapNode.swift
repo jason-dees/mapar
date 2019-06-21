@@ -27,7 +27,6 @@ class MapNode : SCNNode {
         }
         set(newImage) {
             self.mapPlane.image = newImage
-            updateAspecRatio()
         }
     }
     public var isMain : Bool = false
@@ -61,22 +60,21 @@ class MapNode : SCNNode {
         self.planeNode.constraints = [self.buildPlaneConstraint()]
         self.mapPlane = MapPlane()
         self.planeNode.geometry = self.mapPlane
-        
     }
     
     private func updateAspecRatio(){
-        var extentX = CGFloat(planeAnchor.extent.x)
-        var extentZ = CGFloat(planeAnchor.extent.z)
+        var extentX = CGFloat(self.planeAnchor.extent.x)
+        var extentZ = CGFloat(self.planeAnchor.extent.z)
 
         if(extentX > extentZ){
             //use plane width, adjust to image height
-            let multiplier = image.size.width / extentX
-            extentZ = image.size.height / multiplier;
+            let multiplier = self.image.size.width / extentX
+            extentZ = self.image.size.height / multiplier;
         }
         else{
             // use plane height, adjust to image width
-            let multiplier = image.size.height / extentZ
-            extentX = image.size.width / multiplier;
+            let multiplier = self.image.size.height / extentZ
+            extentX = self.image.size.width / multiplier;
         }
 
         self.setSize(width: extentX, height: extentZ)
@@ -106,10 +104,11 @@ class MapNode : SCNNode {
         planeNode?.simdPosition = at
     }
     
-    func addMarker(marker: MapMarker){
+    func addMarker(marker: MapMarker) -> MarkerNode{
         let markerNode = MarkerNode(newMarkerId: marker.id)
         markerNode.constraints = [self.buildMarkerConstraint(marker: marker)]
         self.addChildNode(markerNode)
+        return  markerNode
     }
     
     private func buildMarkerConstraint(marker: MapMarker) -> SCNTransformConstraint {
@@ -138,20 +137,9 @@ class MapNode : SCNNode {
     private func buildPlaneConstraint() ->SCNTransformConstraint{
         return SCNTransformConstraint(inWorldSpace: false, with:{
             node, transformMatrix in
-
+            
+            self.updateAspecRatio()
             return node.transform
         })
-    }
-    
-    private static func nodeWidth(node: SCNNode) -> Float{
-        let boundingMax = node.boundingBox.max
-        let boundingMin = node.boundingBox.min
-        return boundingMax.x + abs(boundingMin.x)
-    }
-    
-    private static func nodeHeight(node : SCNNode) -> Float{
-        let boundingMax = node.boundingBox.max
-        let boundingMin = node.boundingBox.min
-        return boundingMax.y + abs(boundingMin.y)
     }
 }

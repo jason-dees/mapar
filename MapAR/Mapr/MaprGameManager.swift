@@ -64,6 +64,12 @@ class MaprGameManager {
             }
         })
     }
+    
+    func loadMarkerImage(_ marker: MapMarker, onFinished: @escaping (UIImage) -> ()){
+        self.communicator.getMarkerImage(forGame: marker.gameId, forMap: marker.mapId, forMarker: marker.id) { imageData in
+            onFinished(UIImage(data: imageData) ?? UIImage())
+        }
+    }
 }
 //https://www.swiftbysundell.com/posts/observers-in-swift-part-2
 extension MaprGameManager {

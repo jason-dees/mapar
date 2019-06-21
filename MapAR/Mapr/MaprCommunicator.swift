@@ -51,7 +51,7 @@ class MaprCommunicator {
         }
     }
     
-    func getMarkerImage(for gameId: String, for mapId: String, for markerId: String, completion: @escaping (Data) -> ()){
+    func getMarkerImage(forGame gameId: String, forMap mapId: String, forMarker markerId: String, completion: @escaping (Data) -> ()){
         let mapUrl = URL(string: "\(baseUrl)/games/\(gameId)/maps/\(mapId)/markers/\(markerId)/image")!
         MaprCommunicator.getImage(from: mapUrl) { data in
             completion(data)

@@ -49,7 +49,11 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
                 print("No nodes to set map image to")
             }
             maprGameManager.markers.forEach({
-                self.displayedNode.addMarker(marker:$0)
+                let marker = self.displayedNode.addMarker(marker:$0)
+                maprGameManager.loadMarkerImage($0, onFinished: {
+                    markerImage in
+                    marker.image = markerImage
+                })
             })
             //How do i want to get the image?
         }
