@@ -27,6 +27,7 @@ class MapNode : SCNNode {
         }
         set(newImage) {
             self.mapPlane.image = newImage
+            updateAspecRatio()
         }
     }
     public var isMain : Bool = false
@@ -63,7 +64,7 @@ class MapNode : SCNNode {
         
     }
     
-    private func setPlaneImage(image: UIImage, planeAnchor: ARPlaneAnchor){
+    private func updateAspecRatio(){
         var extentX = CGFloat(planeAnchor.extent.x)
         var extentZ = CGFloat(planeAnchor.extent.z)
 
@@ -79,7 +80,6 @@ class MapNode : SCNNode {
         }
 
         self.setSize(width: extentX, height: extentZ)
-        self.mapPlane.image = image
     }
     
     func setSize(planeAnchor: ARPlaneAnchor){
@@ -107,7 +107,7 @@ class MapNode : SCNNode {
     }
     
     func addMarker(marker: MapMarker){
-        let markerNode = MarkerNode(markerId: marker.id)
+        let markerNode = MarkerNode(newMarkerId: marker.id)
         markerNode.constraints = [self.buildMarkerConstraint(marker: marker)]
         self.addChildNode(markerNode)
     }

@@ -11,26 +11,38 @@ import ARKit
 
 class MarkerNode : SCNNode {
 
-    let box : SCNBox = SCNBox(width: 100, height: 100, length: 100, chamferRadius: 0)
-    public var markerId : String = "" {
-        didSet {}
-    }
+    let box : MarkerBox = MarkerBox(width: 100, height: 100, length: 100, chamferRadius: 0)
+    public var markerId : String
     
     public var x : Int = 0
     public var y : Int = 0
     
-    init(markerId: String) {
-        super.init()
-        setup()
-        self.markerId = markerId
+    public var image: UIImage {
+        get{
+            return box.image
+        }
+        set(newImage) {
+            box.image = newImage
+        }
     }
     
-    override init(){
+    public var color: UIColor {
+        get {
+            return box.diffuseColor
+        }
+        set(newColor) {
+            box.diffuseColor = newColor
+        }
+    }
+    
+    init(newMarkerId: String) {
+        markerId = newMarkerId
         super.init()
         setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
+        markerId = ""
         super.init(coder: aDecoder)
         setup()
     }

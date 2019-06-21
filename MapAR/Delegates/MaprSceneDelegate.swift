@@ -41,12 +41,17 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         super.init()
         game.addMapImageLoadedObserver(self) {
             sceneDelegate, maprGameManager in
-            print("Setting map image")
             if(self.planes.count > 0){
+                print("Setting map image")
                 self.image = maprGameManager.primaryMapImageData
                 self.displayedNode.image = maprGameManager.primaryMapImageData
+            } else {
+                print("No nodes to set map image to")
             }
-            maprGameManager.markers.forEach({ self.displayedNode.addMarker(marker:$0) })
+            maprGameManager.markers.forEach({
+                self.displayedNode.addMarker(marker:$0)
+            })
+            //How do i want to get the image?
         }
     }
     

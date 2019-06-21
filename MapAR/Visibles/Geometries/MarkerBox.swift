@@ -1,15 +1,24 @@
 //
-//  BuildingBox.swift
+//  MarkerBox.swift
 //  MapAR
 //
-//  Created by Jason Dees on 6/2/19.
+//  Created by jdees on 6/21/19.
 //  Copyright © 2019 Jason Dees. All rights reserved.
 //
 
 import Foundation
 import ARKit
 
-class BuildingBox : SCNBox{
+class MarkerBox : SCNBox {
+    
+    public var image: UIImage {
+        get {
+            return self.firstMaterial?.diffuse.contents as! UIImage
+        }
+        set(newImage) {
+            self.firstMaterial?.diffuse.contents = newImage
+        }
+    }
     
     public var diffuseColor : UIColor {
         get {
@@ -29,11 +38,4 @@ class BuildingBox : SCNBox{
         }
     }
     
-    override init(){
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
 }
