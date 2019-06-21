@@ -12,44 +12,36 @@ import ARKit
 class MapNode : SCNNode {
     //This is too tied to plane anchors and makes me sad
     var planeNode : SCNNode!
-    public var image : UIImage = UIImage() {
-        didSet {
-            setPlaneImage(image: image, planeAnchor: planeAnchor)
+    
+    public var color: UIColor {
+        get{
+            return self.mapPlane.color
+        }
+        set(newColor) {
+            self.mapPlane.color = newColor
         }
     }
-    
-    public var color: UIColor = .orange {
-        didSet{
-            setPlaneNodeColor(color : color)
+    public var image : UIImage {
+        get {
+            return self.mapPlane.image
+        }
+        set(newImage) {
+            self.mapPlane.image = newImage
         }
     }
     public var isMain : Bool = false
     
-    public var planeAnchor: ARPlaneAnchor!{
+    public var planeAnchor: ARPlaneAnchor! {
         didSet{
             setSize(planeAnchor: planeAnchor)
             setPosition(planeAnchor: planeAnchor)
         }
     }
     
-    private var plane: SCNPlane {
-        get {
-            var plane = planeNode?.geometry as? SCNPlane
-            if(plane == nil){
-                plane = SCNPlane()
-                planeNode?.geometry = plane
-            }
-            return plane!
-        }
-    }
+    private var mapPlane: MapPlane!
     
     init(anchor:  ARPlaneAnchor){
-        super.init()
-        setup()
         planeAnchor = anchor
-    }
-    
-    override init(){
         super.init()
         setup()
     }
@@ -60,12 +52,15 @@ class MapNode : SCNNode {
     }
     
     private func setup(){
-        planeNode = SCNNode()
-        planeNode.name = "plane"
-        planeNode?.eulerAngles.x = -.pi / 2
-        planeNode?.opacity = 1
+        self.planeNode = SCNNode()
+        self.planeNode.name = "plane"
+        self.planeNode?.eulerAngles.x = -.pi / 2
+        self.planeNode?.opacity = 1
         self.addChildNode(planeNode)
-        planeNode.constraints = [self.buildPlaneConstraint()]
+        self.planeNode.constraints = [self.buildPlaneConstraint()]
+        self.mapPlane = MapPlane()
+        self.planeNode.geometry = self.mapPlane
+        
     }
     
     private func setPlaneImage(image: UIImage, planeAnchor: ARPlaneAnchor){
@@ -84,12 +79,7 @@ class MapNode : SCNNode {
         }
 
         self.setSize(width: extentX, height: extentZ)
-        self.plane.firstMaterial?.diffuse.contents = image
-    }
-    
-    func setPlaneNodeColor(color : UIColor){
-        self.plane.firstMaterial?.diffuse.contents = color
-        self.plane.firstMaterial?.transparency = CGFloat(0.5)
+        self.mapPlane.image = image
     }
     
     func setSize(planeAnchor: ARPlaneAnchor){
@@ -99,8 +89,7 @@ class MapNode : SCNNode {
     }
     
     func setSize(width: CGFloat, height: CGFloat){
-        self.plane.width = width
-        self.plane.height = height
+        self.mapPlane.setSize(width: width, height: height)
     }
     
     func setPosition(planeAnchor: ARPlaneAnchor) {
@@ -127,15 +116,15 @@ class MapNode : SCNNode {
         return SCNTransformConstraint(inWorldSpace: false, with:{
             node, transformMatrix in
             
-            let imageWidth = self.image.size.width
-            let planeWidth = self.plane.width
+            let imageWidth = self.mapPlane.image.size.width
+            let planeWidth = self.mapPlane.width
             var scale = imageWidth/planeWidth
             if(imageWidth > planeWidth){
                 scale = planeWidth/imageWidth
             }
             
-            let newX = Float(marker.x) * Float(scale) - Float(self.plane.width)/2
-            let newY = Float(marker.y) * Float(scale) - Float(self.plane.height)/2
+            let newX = Float(marker.x) * Float(scale) - Float(self.mapPlane.width)/2
+            let newY = Float(marker.y) * Float(scale) - Float(self.mapPlane.height)/2
             //position from 0,0,0 ugh oh my god
             node.position = SCNVector3(x: newX,
                                        y: 0,

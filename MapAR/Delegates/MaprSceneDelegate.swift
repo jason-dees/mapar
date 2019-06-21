@@ -11,14 +11,9 @@ import ARKit
 
 class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
 
-    var _isFirst : Bool = true;
-    var _image : UIImage = UIImage(named: "default-map")! {
-        didSet {
-            if(planes.count > 0){
-                displayedNode.image = self._image
-            }
-        }
-    };
+    var isFirst : Bool = true;
+    //need to hold this for when planes are not yet found
+    var image : UIImage = UIImage(named: "default-map")!
     
     var planes : Array<MapNode> = Array()
     var displayedNode : MapNode {
@@ -47,13 +42,16 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         game.addMapImageLoadedObserver(self) {
             sceneDelegate, maprGameManager in
             print("Setting map image")
-            self._image = maprGameManager.primaryMapImageData
+            if(self.planes.count > 0){
+                self.image = maprGameManager.primaryMapImageData
+                self.displayedNode.image = maprGameManager.primaryMapImageData
+            }
             maprGameManager.markers.forEach({ self.displayedNode.addMarker(marker:$0) })
         }
     }
     
     func changeGame(from gameCode:String, onFinished:@escaping (String)->() = {status in } ){
-        self._image = UIImage(named: "default-map")!
+        self.image = UIImage(named: "default-map")!
         gameManager.changeGame(from: gameCode, onFinished: onFinished)
     }
     
@@ -64,13 +62,15 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return SCNNode()}
         
         let node = MapNode(anchor: planeAnchor)
-        node.isMain = _isFirst
-        if(_isFirst){
+        node.isMain = isFirst
+        if(isFirst){
+            print("Found First Plane")
             node.isHidden = false;
-            node.image = self._image
-            _isFirst = false;
+            node.image = self.image
+            isFirst = false;
         }
         else{
+            print("Found \(planes.count + 1) Plane")
             node.isHidden = self.hideNewPlacements
             node.color = .orange
         }
