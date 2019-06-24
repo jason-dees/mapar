@@ -54,12 +54,18 @@ class MapNode : SCNNode {
     private func setup(){
         self.planeNode = SCNNode()
         self.planeNode.name = "plane"
-        self.planeNode?.eulerAngles.x = -.pi / 2
-        self.planeNode?.opacity = 1
+        self.planeNode.eulerAngles.x = -.pi / 2
+        self.planeNode.opacity = 1
         self.addChildNode(planeNode)
         self.planeNode.constraints = [self.buildPlaneConstraint()]
         self.mapPlane = MapPlane()
         self.planeNode.geometry = self.mapPlane
+        
+        let weatherNode = WeatherNode()
+        weatherNode.name = "weather"
+        weatherNode.eulerAngles.x = -.pi / 2
+        weatherNode.opacity = 1
+        self.addChildNode(weatherNode)
     }
     
     private func updateAspecRatio(){

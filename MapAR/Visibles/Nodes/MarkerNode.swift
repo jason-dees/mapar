@@ -28,10 +28,10 @@ class MarkerNode : SCNNode {
     
     public var color: UIColor {
         get {
-            return box.diffuseColor
+            return box.metalnessColor
         }
         set(newColor) {
-            box.diffuseColor = newColor
+            box.metalnessColor = newColor
         }
     }
     
@@ -48,7 +48,7 @@ class MarkerNode : SCNNode {
     }
     
     private func setup(){
-        box.firstMaterial?.diffuse.contents = UIColor.red
         self.geometry = box
+        self.color = UIColor.red
     }
 }

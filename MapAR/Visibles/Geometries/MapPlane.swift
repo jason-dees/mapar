@@ -11,6 +11,17 @@ import ARKit
 
 class MapPlane : SCNPlane {
     
+    override init(){
+        super.init()
+        let material = SCNMaterial()
+        material.lightingModel = .phong
+        self.firstMaterial = material
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     public var image : UIImage = UIImage() {
         didSet {
             self.firstMaterial?.diffuse.contents = image

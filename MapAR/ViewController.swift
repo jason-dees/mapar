@@ -57,8 +57,7 @@ class ViewController: UIViewController {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
-        // Run the view's session
+        configuration.planeDetection = [.horizontal, .vertical]        // Run the view's session
         sceneView.session.run(configuration)
     }
     

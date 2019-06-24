@@ -17,6 +17,7 @@
 		5A9A3F5E22BBD1220070E893 /* ViewController+UITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A3F5D22BBD1220070E893 /* ViewController+UITapGestureRecognizer.swift */; };
 		5A9A3F6022BD0D6E0070E893 /* MapPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A3F5F22BD0D6E0070E893 /* MapPlane.swift */; };
 		5AC4FD7922BD236C00571CDF /* MarkerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC4FD7822BD236C00571CDF /* MarkerBox.swift */; };
+		5AC4FD7B22C0EFF000571CDF /* WeatherNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC4FD7A22C0EFF000571CDF /* WeatherNode.swift */; };
 		A34A5BBD22A44B9D000342A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */; };
 		A34A5BBF22A44B9D000342A7 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A34A5BBE22A44B9D000342A7 /* art.scnassets */; };
 		A34A5BC122A44B9D000342A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BC022A44B9D000342A7 /* ViewController.swift */; };
@@ -37,6 +38,7 @@
 		5A9A3F5D22BBD1220070E893 /* ViewController+UITapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+UITapGestureRecognizer.swift"; sourceTree = "<group>"; };
 		5A9A3F5F22BD0D6E0070E893 /* MapPlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlane.swift; sourceTree = "<group>"; };
 		5AC4FD7822BD236C00571CDF /* MarkerBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerBox.swift; sourceTree = "<group>"; };
+		5AC4FD7A22C0EFF000571CDF /* WeatherNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNode.swift; sourceTree = "<group>"; };
 		A34A5BB922A44B9D000342A7 /* MapAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A34A5BBE22A44B9D000342A7 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 			children = (
 				A34A5BDC22A44E0B000342A7 /* MapNode.swift */,
 				5A0C4EFE22AED06F0061FA65 /* MarkerNode.swift */,
+				5AC4FD7A22C0EFF000571CDF /* WeatherNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			files = (
 				5A0C4F0722B7D0B60061FA65 /* GameMap.swift in Sources */,
 				A34A5BC122A44B9D000342A7 /* ViewController.swift in Sources */,
+				5AC4FD7B22C0EFF000571CDF /* WeatherNode.swift in Sources */,
 				5A9A3F5C22BBCE210070E893 /* ViewController+UI.swift in Sources */,
 				5A9A3F6022BD0D6E0070E893 /* MapPlane.swift in Sources */,
 				5A0C4F0222AFD81F0061FA65 /* MaprCommunicator.swift in Sources */,
