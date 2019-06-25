@@ -111,7 +111,7 @@ class MapNode : SCNNode {
     }
     
     func addMarker(marker: MapMarker) -> MarkerNode{
-        let markerNode = MarkerNode(newMarkerId: marker.id)
+        let markerNode = MarkerNode(newMarkerData: marker)
         markerNode.constraints = [self.buildMarkerConstraint(marker: marker)]
         self.addChildNode(markerNode)
         return  markerNode

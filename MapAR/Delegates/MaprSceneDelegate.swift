@@ -28,9 +28,9 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         }
     }
     
-    public var hideNewPlacements: Bool = true {
+    public var areNewPlacementsHidden: Bool = true {
         didSet {
-            self.toggleOtherPlanes(isHidden: self.hideNewPlacements)
+            self.toggleOtherPlanes(isHidden: self.areNewPlacementsHidden)
         }
     }
     
@@ -45,16 +45,17 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
                 print("Setting map image")
                 self.image = maprGameManager.primaryMapImageData
                 self.displayedNode.image = maprGameManager.primaryMapImageData
+                maprGameManager.markers.forEach({
+                    let marker = self.displayedNode.addMarker(marker:$0)
+                    maprGameManager.loadMarkerImage($0, onFinished: {
+                        markerImage in
+                        marker.image = markerImage
+                    })
+                })
             } else {
                 print("No nodes to set map image to")
+                //How to set the markers after the game has been loaded and the image has been loaded?
             }
-            maprGameManager.markers.forEach({
-                let marker = self.displayedNode.addMarker(marker:$0)
-                maprGameManager.loadMarkerImage($0, onFinished: {
-                    markerImage in
-                    marker.image = markerImage
-                })
-            })
             //How do i want to get the image?
         }
     }
@@ -80,7 +81,7 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
         }
         else{
             print("Found \(planes.count + 1) Plane")
-            node.isHidden = self.hideNewPlacements
+            node.isHidden = self.areNewPlacementsHidden
             node.color = .orange
         }
         return node

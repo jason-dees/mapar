@@ -12,7 +12,12 @@ import ARKit
 class MarkerNode : SCNNode {
 
     let box : MarkerBox = MarkerBox(width: 100, height: 100, length: 100, chamferRadius: 0)
-    public var markerId : String
+    public var markerId : String {
+        get {
+            return self.markerData!.id
+        }
+    }
+    public private(set) var markerData : MapMarker?
     
     public var x : Int = 0
     public var y : Int = 0
@@ -35,14 +40,14 @@ class MarkerNode : SCNNode {
         }
     }
     
-    init(newMarkerId: String) {
-        markerId = newMarkerId
+    init(newMarkerData: MapMarker) {
+        markerData = newMarkerData
         super.init()
         setup()
+        self.name = newMarkerData.id
     }
     
     required init?(coder aDecoder: NSCoder) {
-        markerId = ""
         super.init(coder: aDecoder)
         setup()
     }

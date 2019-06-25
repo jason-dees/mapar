@@ -21,15 +21,25 @@ extension ViewController: UIGestureRecognizerDelegate {
     }
     
     @objc func sceneTap(recognizer : UITapGestureRecognizer){
-//        guard let arView = recognizer.view as? ARSCNView else { return }
+        guard let arView = recognizer.view as? ARSCNView else { return }
 //        
-//        let tapScreenLocation = recognizer.location(in: arView)
-//        let bottomRight = CGPoint(x: arView.frame.maxX, y: arView.frame.maxY)
-//        let tapLocation = CGPoint(x: tapScreenLocation.x/bottomRight.x, y: tapScreenLocation.y/bottomRight.y)
-//        //I don't think i want hit tests soooo...
-//        let results = arView.hitTest(tapLocation, types: [.existingPlaneUsingGeometry, .estimatedHorizontalPlane, .estimatedVerticalPlane])
-//        if(results.count>0){
-//            let first = results.first
-//        }
+        let tapScreenLocation = recognizer.location(in: arView)
+        guard let node = arView.hitTest(tapScreenLocation).first?.node else { return }
+        if(node is MarkerNode){
+            // I need to do something with this node
+            showMarkerAlert(marker: (node as! MarkerNode).markerData!)
+        }
+    }
+    
+    func showMarkerAlert(marker: MapMarker){
+        let alert = UIAlertController(title: marker.name,
+                                      message: marker.description ?? "[No Description]",
+                                      preferredStyle: UIAlertController.Style.alert)
+        
+        let action = UIAlertAction(title: "Ok", style: .cancel){ (alertAction) in }
+        
+        alert.addAction(action)
+        
+        self.present(alert, animated:true, completion: nil)
     }
 }
