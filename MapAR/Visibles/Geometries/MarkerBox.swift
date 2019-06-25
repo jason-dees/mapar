@@ -26,10 +26,10 @@ class MarkerBox : SCNBox {
     
     public var image: UIImage {
         get {
-            return self.firstMaterial?.metalness.contents as! UIImage
+            return self.firstMaterial?.diffuse.contents as! UIImage
         }
         set(newImage) {
-            self.firstMaterial?.metalness.contents = newImage
+            self.firstMaterial?.diffuse.contents = newImage
         }
     }
     

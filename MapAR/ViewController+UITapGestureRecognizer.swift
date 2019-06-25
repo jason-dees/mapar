@@ -27,11 +27,12 @@ extension ViewController: UIGestureRecognizerDelegate {
         guard let node = arView.hitTest(tapScreenLocation).first?.node else { return }
         if(node is MarkerNode){
             // I need to do something with this node
-            showMarkerAlert(marker: (node as! MarkerNode).markerData!)
+            showMarkerAlert(markerNode: (node as! MarkerNode))
         }
     }
     
-    func showMarkerAlert(marker: MapMarker){
+    func showMarkerAlert(markerNode: MarkerNode){
+        let marker = markerNode.markerData!
         let alert = UIAlertController(title: marker.name,
                                       message: marker.description ?? "[No Description]",
                                       preferredStyle: UIAlertController.Style.alert)
@@ -39,6 +40,17 @@ extension ViewController: UIGestureRecognizerDelegate {
         let action = UIAlertAction(title: "Ok", style: .cancel){ (alertAction) in }
         
         alert.addAction(action)
+        let widthConstraint = markerNode.image.size.width
+        let heightConstraint = markerNode.image.size.height
+        if(widthConstraint > 230){
+            
+        }
+        let imageView = UIImageView(image: markerNode.image)
+        let height = NSLayoutConstraint(item: alert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: markerNode.image.size.height)
+        let width = NSLayoutConstraint(item: alert.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
+        alert.view.addConstraint(height)
+        alert.view.addConstraint(width)
+        alert.view.addSubview(imageView)
         
         self.present(alert, animated:true, completion: nil)
     }
