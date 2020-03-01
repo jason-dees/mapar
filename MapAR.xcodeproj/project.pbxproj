@@ -18,6 +18,7 @@
 		5A9A3F6022BD0D6E0070E893 /* MapPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A3F5F22BD0D6E0070E893 /* MapPlane.swift */; };
 		5AC4FD7922BD236C00571CDF /* MarkerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC4FD7822BD236C00571CDF /* MarkerBox.swift */; };
 		5AC4FD7B22C0EFF000571CDF /* WeatherNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC4FD7A22C0EFF000571CDF /* WeatherNode.swift */; };
+		A332A78C240C4D8D00649988 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332A78B240C4D8D00649988 /* SwiftUIView.swift */; };
 		A34A5BBD22A44B9D000342A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */; };
 		A34A5BBF22A44B9D000342A7 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A34A5BBE22A44B9D000342A7 /* art.scnassets */; };
 		A34A5BC122A44B9D000342A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BC022A44B9D000342A7 /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 		5A9A3F5F22BD0D6E0070E893 /* MapPlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlane.swift; sourceTree = "<group>"; };
 		5AC4FD7822BD236C00571CDF /* MarkerBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerBox.swift; sourceTree = "<group>"; };
 		5AC4FD7A22C0EFF000571CDF /* WeatherNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNode.swift; sourceTree = "<group>"; };
+		A332A78B240C4D8D00649988 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		A34A5BB922A44B9D000342A7 /* MapAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A34A5BBE22A44B9D000342A7 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -91,6 +93,14 @@
 			path = Nodes;
 			sourceTree = "<group>";
 		};
+		A332A78A240C4D7800649988 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				A332A78B240C4D8D00649988 /* SwiftUIView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		A34A5BB022A44B9D000342A7 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +120,7 @@
 		A34A5BBB22A44B9D000342A7 /* MapAR */ = {
 			isa = PBXGroup;
 			children = (
+				A332A78A240C4D7800649988 /* SwiftUI */,
 				5A0C4F0022AFD7CE0061FA65 /* Mapr */,
 				A34A5BD522A44DA0000342A7 /* Visibles */,
 				A34A5BD022A44CF6000342A7 /* Delegates */,
@@ -223,6 +234,7 @@
 			files = (
 				5A0C4F0722B7D0B60061FA65 /* GameMap.swift in Sources */,
 				A34A5BC122A44B9D000342A7 /* ViewController.swift in Sources */,
+				A332A78C240C4D8D00649988 /* SwiftUIView.swift in Sources */,
 				5AC4FD7B22C0EFF000571CDF /* WeatherNode.swift in Sources */,
 				5A9A3F5C22BBCE210070E893 /* ViewController+UI.swift in Sources */,
 				5A9A3F6022BD0D6E0070E893 /* MapPlane.swift in Sources */,
@@ -294,7 +306,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -349,7 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -366,6 +378,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G8D7T2DDDN;
 				INFOPLIST_FILE = MapAR/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -384,6 +397,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G8D7T2DDDN;
 				INFOPLIST_FILE = MapAR/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
