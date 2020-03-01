@@ -103,10 +103,10 @@ class MapNode : SCNNode {
     }
     
     func setPosition(x: Float, y: Float, z: Float){
-        setPosition(at: float3(x: x, y: y, z: y))
+        setPosition(at: SIMD3<Float>(x: x, y: y, z: y))
     }
     
-    func setPosition(at: float3){
+    func setPosition(at: SIMD3<Float>){
         planeNode?.simdPosition = at
     }
     

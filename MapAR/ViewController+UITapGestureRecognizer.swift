@@ -41,7 +41,7 @@ extension ViewController: UIGestureRecognizerDelegate {
         
         alert.addAction(action)
         let widthConstraint = markerNode.image.size.width
-        let heightConstraint = markerNode.image.size.height
+        //let heightConstraint = markerNode.image.size.height
         if(widthConstraint > 230){
             
         }
