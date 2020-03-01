@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import ARKit
 
-extension ViewController: UIGestureRecognizerDelegate {
+extension MapARViewController: UIGestureRecognizerDelegate {
     /// Determines if the tap gesture for presenting the `VirtualObjectSelectionViewController` should be used.
     func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
         return true

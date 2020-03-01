@@ -8,8 +8,9 @@
 
 import UIKit
 import ARKit
+import SwiftUI
 
-class ViewController: UIViewController {
+class MapARViewController: UIViewController {
     
     let sceneView: ARSCNView = {
         let arview = ARSCNView();

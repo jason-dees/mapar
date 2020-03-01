@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import ARKit
 
-extension ViewController {
+extension MapARViewController {
     func buildUI() {
         view.backgroundColor = UIColor.red
         
