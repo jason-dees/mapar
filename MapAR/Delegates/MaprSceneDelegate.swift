@@ -39,14 +39,14 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
     init(game: MaprGameManager = MaprGameManager()){
         self.gameManager = game
         super.init()
-        game.addMapImageLoadedObserver(self) {
+        game.addMapImageLoadedObserver(self) {[weak self]
             sceneDelegate, maprGameManager in
-            if(self.planes.count > 0){
+            if(self!.planes.count > 0){
                 print("Setting map image")
-                self.image = maprGameManager.primaryMapImageData
-                self.displayedNode.image = maprGameManager.primaryMapImageData
+                self!.image = maprGameManager.primaryMapImageData
+                self!.displayedNode.image = maprGameManager.primaryMapImageData
                 maprGameManager.markers.forEach({
-                    let marker = self.displayedNode.addMarker(marker:$0)
+                    let marker = self!.displayedNode.addMarker(marker:$0)
                     maprGameManager.loadMarkerImage($0, onFinished: {
                         markerImage in
                         marker.image = markerImage
@@ -100,7 +100,7 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
     }
     
     func toggleOtherPlanes(isHidden: Bool){
-        for otherPlane in otherPlanes{
+        for otherPlane in otherPlanes {
             otherPlane.isHidden = isHidden
         }
     }

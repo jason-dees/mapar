@@ -48,14 +48,15 @@ class MaprGameManager {
     
     func changeGame(from gameId: String, onFinished:@escaping (String)->() = {status in } ){
         activeGameId = gameId
-        communicator.getGameData(from: activeGameId,  completion: {data in
+        communicator.getGameData(from: activeGameId,  completion: {[weak self] data in
             let decoder = JSONDecoder()
             do{
-                self.game = try decoder.decode(Game.self, from: data)
+                self!.game = try decoder.decode(Game.self, from: data)
                 
-                self.communicator.getMapImage(from: self.game.id, from: self.game.primaryMapId, completion: {data in
-                    self.primaryMapImageData = UIImage(data: data) ?? UIImage()
-                    onFinished("")
+                self!.communicator.getMapImage(from: self!.game.id, from: self!.game.primaryMapId,
+                                               completion: {[weak self] data in
+                                                self!.primaryMapImageData = UIImage(data: data) ?? UIImage()
+                                                onFinished("")
                 })
             }
             catch {
@@ -71,12 +72,14 @@ class MaprGameManager {
         }
     }
 }
+
 //https://www.swiftbysundell.com/posts/observers-in-swift-part-2
 extension MaprGameManager {
     @discardableResult
     func addMapImageLoadedObserver<T: AnyObject>(_ observer: T, closure: @escaping (T, MaprGameManager) -> Void) -> ObservationToken {
         let id = UUID()
-        
+        //Setting weak refernences to keep this closure from
+        //causing a strong reference cycle with self and the closure
         observations.mapImageLoaded[id] = { [weak self, weak observer] game in
             // If the observer has been deallocated, we can
             // automatically remove the observation closure.
