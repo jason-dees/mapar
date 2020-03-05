@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GameMap : Codable {
+struct GameMap : Codable {
     var id: String = ""
     var gameId: String = ""
     var imageUri: String = ""

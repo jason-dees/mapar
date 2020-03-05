@@ -11,7 +11,7 @@
 import Foundation
 
 
-class MaprCommunicator {
+struct MaprCommunicator {
     
     let baseUrl: String
     

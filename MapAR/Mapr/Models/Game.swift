@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Game : Codable {
+struct Game : Codable {
     var id: String = ""
     var owner: String = ""
     var name: String = ""

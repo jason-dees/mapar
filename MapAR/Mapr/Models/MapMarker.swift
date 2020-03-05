@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MapMarker : Codable{
+struct MapMarker : Codable{
     var id: String = ""
     var mapId: String = ""
     var gameId: String = ""
