@@ -39,14 +39,16 @@ class MaprSceneDelegate : NSObject, ARSCNViewDelegate {
     init(game: MaprGameManager = MaprGameManager()){
         self.gameManager = game
         super.init()
-        game.addMapImageLoadedObserver(self) {[weak self]
-            sceneDelegate, maprGameManager in
-            if(self!.planes.count > 0){
+        //I want this to stick around and the lifetime of this
+        //closure should match this delegate
+        game.addMapImageLoadedObserver(observer: self) {[unowned sceneDelegate = self]
+            _ , maprGameManager in
+            if(self.planes.count > 0){
                 print("Setting map image")
-                self!.image = maprGameManager.primaryMapImageData
-                self!.displayedNode.image = maprGameManager.primaryMapImageData
+                sceneDelegate.image = maprGameManager.primaryMapImageData
+                sceneDelegate.displayedNode.image = maprGameManager.primaryMapImageData
                 maprGameManager.markers.forEach({
-                    let marker = self!.displayedNode.addMarker(marker:$0)
+                    let marker = sceneDelegate.displayedNode.addMarker(marker:$0)
                     maprGameManager.loadMarkerImage($0, onFinished: {
                         markerImage in
                         marker.image = markerImage

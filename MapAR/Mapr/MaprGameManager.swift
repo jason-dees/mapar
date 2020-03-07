@@ -76,11 +76,11 @@ class MaprGameManager {
 //https://www.swiftbysundell.com/posts/observers-in-swift-part-2
 extension MaprGameManager {
     @discardableResult
-    func addMapImageLoadedObserver<T: AnyObject>(_ observer: T, closure: @escaping (T, MaprGameManager) -> Void) -> ObservationToken {
+    func addMapImageLoadedObserver<T: AnyObject>(observer: T, closure: @escaping (T, MaprGameManager) -> Void) -> ObservationToken {
         let id = UUID()
         //Setting weak refernences to keep this closure from
         //causing a strong reference cycle with self and the closure
-        observations.mapImageLoaded[id] = { [weak self, weak observer] game in
+        observations.mapImageLoaded[id] = { [weak self, weak observer] gameManager in
             // If the observer has been deallocated, we can
             // automatically remove the observation closure.
             guard let observer = observer else {
@@ -88,7 +88,7 @@ extension MaprGameManager {
                 return
             }
             
-            closure(observer, game)
+            closure(observer, gameManager)
         }
         return ObservationToken { [weak self] in
             self?.observations.mapImageLoaded.removeValue(forKey: id)

@@ -12,8 +12,7 @@ import ARKit
 
 extension MapARViewController {
     func buildUI() {
-        view.backgroundColor = UIColor.red
-        
+        view.backgroundColor = UIColor.red        
         view.addSubview(sceneView)
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

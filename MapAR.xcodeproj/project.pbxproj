@@ -13,12 +13,13 @@
 		5A0C4F0722B7D0B60061FA65 /* GameMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0622B7D0B60061FA65 /* GameMap.swift */; };
 		5A0C4F0922B7D11F0061FA65 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0822B7D11F0061FA65 /* MapMarker.swift */; };
 		5A0C4F0B22B7DED90061FA65 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C4F0A22B7DED90061FA65 /* Game.swift */; };
+		5A6A2891241423AD0063C645 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6A2890241423AD0063C645 /* SceneDelegate.swift */; };
+		5A6A2893241424240063C645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A6A2892241424240063C645 /* LaunchScreen.storyboard */; };
 		5A9A3F5C22BBCE210070E893 /* MapARViewController+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A3F5B22BBCE210070E893 /* MapARViewController+UI.swift */; };
 		5A9A3F5E22BBD1220070E893 /* MapARViewController+UITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A3F5D22BBD1220070E893 /* MapARViewController+UITapGestureRecognizer.swift */; };
 		5A9A3F6022BD0D6E0070E893 /* MapPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A3F5F22BD0D6E0070E893 /* MapPlane.swift */; };
 		5AC4FD7922BD236C00571CDF /* MarkerBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC4FD7822BD236C00571CDF /* MarkerBox.swift */; };
 		5AC4FD7B22C0EFF000571CDF /* WeatherNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC4FD7A22C0EFF000571CDF /* WeatherNode.swift */; };
-		A332A78C240C4D8D00649988 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332A78B240C4D8D00649988 /* SwiftUIView.swift */; };
 		A332A78E240C578400649988 /* MapARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332A78D240C578400649988 /* MapARView.swift */; };
 		A34A5BBD22A44B9D000342A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */; };
 		A34A5BBF22A44B9D000342A7 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A34A5BBE22A44B9D000342A7 /* art.scnassets */; };
@@ -36,12 +37,13 @@
 		5A0C4F0622B7D0B60061FA65 /* GameMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMap.swift; sourceTree = "<group>"; };
 		5A0C4F0822B7D11F0061FA65 /* MapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarker.swift; sourceTree = "<group>"; };
 		5A0C4F0A22B7DED90061FA65 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		5A6A2890241423AD0063C645 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5A6A2892241424240063C645 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A9A3F5B22BBCE210070E893 /* MapARViewController+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapARViewController+UI.swift"; sourceTree = "<group>"; };
 		5A9A3F5D22BBD1220070E893 /* MapARViewController+UITapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapARViewController+UITapGestureRecognizer.swift"; sourceTree = "<group>"; };
 		5A9A3F5F22BD0D6E0070E893 /* MapPlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPlane.swift; sourceTree = "<group>"; };
 		5AC4FD7822BD236C00571CDF /* MarkerBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerBox.swift; sourceTree = "<group>"; };
 		5AC4FD7A22C0EFF000571CDF /* WeatherNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNode.swift; sourceTree = "<group>"; };
-		A332A78B240C4D8D00649988 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		A332A78D240C578400649988 /* MapARView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapARView.swift; sourceTree = "<group>"; };
 		A34A5BB922A44B9D000342A7 /* MapAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +100,6 @@
 		A332A78A240C4D7800649988 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				A332A78B240C4D8D00649988 /* SwiftUIView.swift */,
 				A332A78D240C578400649988 /* MapARView.swift */,
 			);
 			path = SwiftUI;
@@ -133,6 +134,7 @@
 		A34A5BBB22A44B9D000342A7 /* MapAR */ = {
 			isa = PBXGroup;
 			children = (
+				5A6A2892241424240063C645 /* LaunchScreen.storyboard */,
 				A332A78F240C5A4C00649988 /* ViewControllers */,
 				A332A78A240C4D7800649988 /* SwiftUI */,
 				5A0C4F0022AFD7CE0061FA65 /* Mapr */,
@@ -151,6 +153,7 @@
 				A34A5BBC22A44B9D000342A7 /* AppDelegate.swift */,
 				A34A5BD122A44D1D000342A7 /* MaprSceneDelegate.swift */,
 				A34A5BD322A44D69000342A7 /* SessionDelegate.swift */,
+				5A6A2890241423AD0063C645 /* SceneDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A6A2893241424240063C645 /* LaunchScreen.storyboard in Resources */,
 				A34A5BBF22A44B9D000342A7 /* art.scnassets in Resources */,
 				A34A5BC622A44B9D000342A7 /* Assets.xcassets in Resources */,
 			);
@@ -245,7 +249,6 @@
 			files = (
 				5A0C4F0722B7D0B60061FA65 /* GameMap.swift in Sources */,
 				A34A5BC122A44B9D000342A7 /* MapARViewController.swift in Sources */,
-				A332A78C240C4D8D00649988 /* SwiftUIView.swift in Sources */,
 				5AC4FD7B22C0EFF000571CDF /* WeatherNode.swift in Sources */,
 				5A9A3F5C22BBCE210070E893 /* MapARViewController+UI.swift in Sources */,
 				5A9A3F6022BD0D6E0070E893 /* MapPlane.swift in Sources */,
@@ -255,6 +258,7 @@
 				5A0C4F0422AFD8C40061FA65 /* MaprGameManager.swift in Sources */,
 				A332A78E240C578400649988 /* MapARView.swift in Sources */,
 				A34A5BD222A44D1D000342A7 /* MaprSceneDelegate.swift in Sources */,
+				5A6A2891241423AD0063C645 /* SceneDelegate.swift in Sources */,
 				5A9A3F5E22BBD1220070E893 /* MapARViewController+UITapGestureRecognizer.swift in Sources */,
 				5A0C4F0B22B7DED90061FA65 /* Game.swift in Sources */,
 				5A0C4F0922B7D11F0061FA65 /* MapMarker.swift in Sources */,
